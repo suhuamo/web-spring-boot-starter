@@ -1,0 +1,21 @@
+package ${package.Service};
+
+## import ${superServiceClassPackage};
+import com.suhuamo.web.component.service.WebService;
+import ${package.Entity}.${entity};
+import ${package.Entity}.dto.${entity}DTO;
+import ${package.Entity}.vo.${entity}VO;
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @slogan 想和喜欢的人睡在冬日的暖阳里
+ * @date ${date}
+ */
+public interface ${table.serviceName} extends WebService<${entity}, ${entity}VO ,${entity}DTO> {
+
+
+}

@@ -1,0 +1,6 @@
+com.suhuamo.web.jwt.JwtAutoConfiguration
+com.suhuamo.web.mvc.MvcAutoConfiguration
+com.suhuamo.web.mybatis.MyBatisAutoConfiguration
+com.suhuamo.web.controller.CustomErrorController
+com.suhuamo.web.handler.CustomExceptionHandler
+com.suhuamo.web.handler.MyMetaObjectHandler
