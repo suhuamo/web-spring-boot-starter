@@ -95,7 +95,7 @@ public class WebController<T, D, S extends WebService> {
     }
 
     /**
-     * 修改数据
+     * 修改数据，根据id修改其他属性
      *
      * @param entityDTO
      * @return T
