@@ -13,75 +13,69 @@
 
 ## 当前版本
 
-![目前工程版本](https://img.shields.io/badge/version-0.8.0-green.svg?style=for-the-badge&logo=appveyor)
+v1.0.0
 
 ## 系统介绍
 
 - 目前整个系统分为两大模块
-1. 异常通知模块：主要用于处理在项目中曝出的未捕获异常，通过钉钉或者邮件等方式进行主动消息通知
-2. 微服务通知模块：主要用于对微服务集群中服务信息异常、缺失等情况，通过钉钉或邮件等方式进行消息通知
-
-
-## 异常通知
+1. 基础模块：主要用于实现系统的增删改查自动生成功能，是默认配置的
+2. 其他模块：包含了Jwt鉴权、异常处理、错误页面跳转等，可以通过yml进行取消。
 
 
 ### 最快上手
 
-- 将此工程通过``mvn clean install``打包到本地仓库中。(目前0.8.0版本已加入maven中央仓库，可以直接进行依赖即可)
+- 将此工程通过``mvn clean install``打包到本地仓库中。(目前1.0.0版本还没有加入maven中央仓库，无法进行直接依赖)
 
 - 在你的工程中的``pom.xml``中做如下依赖
 
 ```xml
 	<dependency>
-		<groupId>top.codef</groupId>
-		<artifactId>prometheus-spring-boot-starter</artifactId>
-		<version>0.8.0</version>
+		<groupId>com.suhuamo</groupId>
+		<artifactId>web-spring-boot-starter</artifactId>
+		<version>1.0.0</version>
 	</dependency>
 ```
 
 - 在``application.properties``或者``application.yml``中做如下的配置：（至于以上的配置说明后面的章节会讲到）
 
 ```yaml
-prometheus:
-  enabled: true
-  exceptionnotice:
-    enabled: true
-    included-trace-package: com.havefun
-  notice:
-    dingding:
-      user1:
-        access-token: 在webhook中的参数：accessToken
-        sign-secret: 钉钉的签名秘钥
-        enable-signature-check: true
-        phone-num: 
-        - 通知人的手机号
-  default-name: user1
+spring:
+  #数据源配置
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/springboot?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&
+# web-starter的配置
+suhuamo:
+  web:
+    mybatis:
+      # 生成的包路径
+      parent: com.suhuamo.example
+      # 需要自动生成代码的数据库表
+      tables:
+        - tbl_user
+        - tbl_emp
+        - tbl_role
+      # 生成代码时的java类去掉前缀，可为空
+      tablePrefix:
+        - tbl
 ```
+- 以上配置好以后就可以写demo测试啦，首先创建进行代码的生成：
 
-- 至于钉钉的配置请移步：[钉钉机器人](https://open-doc.dingtalk.com/microapp/serverapi2/krgddi "自定义机器人")，这里需要特别说明一下，钉钉在2019年10月份（大概）对于钉钉机器人进行了一次改进,这次改进主要是安全设置变为必选项，原来已经配置过的钉钉机器人且没有配置安全设置的不受影响
-
-- 以上配置好以后就可以写demo测试啦，首先创建第一个bean：
-
-```java
-@Component
-@ExceptionListener
-public class SomeComponent {
-	public String haveException() {
-		throw new NullPointerException("这是个空指针异常");
-	}
-}
-```
-
-- 以上都建立好了以后，就可以写单元测试了:
 ```java
 @SpringBootTest
-class PrometheusDemoApplicationTests {
+public class exampleTest {
 
-	@Autowired
-	private SomeComponent someComponent;
+    @Autowired
+    MyBatisService myBatisPlusService;
 
-	@Test
-	void contextLoads() {
-		someComponent.haveException();
-	}
+    @Test
+    public void GeneraCode() throws IOException {
+        myBatisPlusService.generatorCode();
+    }
+
 }
+```
+点击运行后可发现代码已自动生成：如下
+![img.png](img.png)
+- 代码生成完毕后，就可以运行项目测试接口了:
