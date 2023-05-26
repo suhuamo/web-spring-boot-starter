@@ -78,4 +78,80 @@ public class exampleTest {
 ```
 点击运行后可发现代码已自动生成：如下
 ![img.png](img.png)
-- 代码生成完毕后，就可以运行项目测试接口了:
+- 代码生成完毕后，就可以运行项目测试接口了,一些是一些基础的接口 xxx/方法 ，xxx为对应的页面，如 user、emp 等
+```java
+1.
+    /**
+     * 查询所有数据
+     *
+     * @param
+     * @return R
+     */
+    @GetMapping("/all")
+    public R all(){
+    }
+2.
+
+    /**
+     * 查询所有数据，可选择使用各种匹配查询,通过传递的值来选择匹配方式
+     *
+     * @param condition 匹配查询的内容，Map<String, List<Pair<String, Object>>> ，第一个String为匹配模式，like、eq等，
+     *                  List<Pair<String, Object>>为匹配的内容，first为项，second为值
+     * @return R
+     */
+    @GetMapping("/allByCondition")
+    public R allByCondition(@RequestParam Map<String, List<Pair<String, Object>>> condition) {
+    }
+3.
+    /**
+     * 通过分页查询获取数据，可选择使用模糊查询
+     *
+     * @param pageNum 页码
+     * @param pageSize 页面数据大小
+     * @param condition 模糊查询的条件-
+     *                     Map<String, List<Pair<String, Object>>>第一个String为匹配模式，like、eq等，
+     *                     List<Pair<String, Object>>为匹配的内容，first为项，second为值
+     * @return R
+     */
+    @GetMapping("/list")
+    public R list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam("condition") Map<String, List<Pair<String, Object>>> condition){
+    }
+4.
+    /**
+     *  根据id查询数据
+     * @param id
+     * @return R
+     */
+    @GetMapping("/{id}")
+    public R getById(@PathVariable("id") Integer id) {
+    }
+5.
+    /**
+     * 添加数据
+     *
+     * @param entityDTO
+     * @return R
+     */
+    @PostMapping("/add")
+    public R add(@RequestBody D entityDTO){
+    }
+6.
+    /**
+     * 修改数据，根据id修改其他属性
+     *
+     * @param entityDTO
+     * @return T
+     */
+    @PutMapping("/update")
+    public R update(@RequestBody D entityDTO){
+    }
+7.
+    /**
+     *  删除数据,可进行批量删除,使用,隔开
+     * @param ids
+     * @return RespMessage
+     */
+    @DeleteMapping("/{ids}")
+    public R delete(@PathVariable("ids") String ids){
+    }
+```
