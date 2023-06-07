@@ -1,12 +1,11 @@
 package ${package.ServiceImpl};
 
 ##import ${superServiceImplClassPackage};
-import com.suhuamo.web.component.service.impl.WebServiceImpl;
 import ${package.Entity}.${entity};
-import ${package.Entity}.dto.${entity}DTO;
 import ${package.Entity}.vo.${entity}VO;
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
+import com.suhuamo.web.component.WebServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
  * </p>
  *
  * @author ${author}
- * @slogan 想和喜欢的人睡在冬日的暖阳里
  * @date ${date}
+ * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  * 该服务类对应的 pojo 类型对应的 mapper 接口已注入 WebServiceImpl ，名称为 baseMapper
  */
 @Service
 @Transactional
-public class ${table.serviceImplName} extends WebServiceImpl<${table.mapperName}, ${entity}, ${entity}VO, ${entity}DTO> implements ${table.serviceName} {
+public class ${table.serviceImplName} extends WebServiceImpl<${table.mapperName}, ${entity}, ${entity}VO> implements ${table.serviceName} {
 
     /**
     *  向 WebServiceImpl 注入所需的mapper接口和其他内容
@@ -34,7 +33,6 @@ public class ${table.serviceImplName} extends WebServiceImpl<${table.mapperName}
         setBaseMapper(${table.entityPath}Mapper);
         setDemoEntity(new ${entity}());
         setDemoEntityVO(new ${entity}VO());
-        setDemoEntityDTO(new ${entity}DTO());
     }
 
 

@@ -36,5 +36,9 @@ public class JwtProperties {
      * 当次请求头中截取到的token反转义获得的claims，设置改内容的名称存入request中。
      */
     private String claimsName = "user_claims";
+    /**
+     * 设置拦截器排除的规则，默认 /user/login
+     */
+    private String[] excludePathPatterns = {"/user/login"};
 
 }

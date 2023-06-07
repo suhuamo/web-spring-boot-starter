@@ -1,18 +1,20 @@
-package com.suhuamo.web.component.service.impl;
+package com.suhuamo.web.component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.suhuamo.web.common.util.DataUtil;
-import com.suhuamo.web.component.service.WebService;
+import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.exception.CustomException;
+import com.suhuamo.web.util.DataUtil;
 
 import lombok.Setter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author suhuamo
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
  * @date 2023/04/06
  * 自定义父类服务实现层,包含基本的类型转换，分页查询接口， T 为 entity 类， V 为 vo 类，D 为 dto 类， M 为mapper接口类
  */
-public class WebServiceImpl<M extends BaseMapper<T>, T, V, D> extends ServiceImpl<M, T> implements WebService<T, V, D> {
+public class WebServiceImpl<M extends BaseMapper<T>, T, V> extends ServiceImpl<M, T> implements WebService<T, V> {
 
 
     /**
@@ -32,8 +34,24 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V, D> extends ServiceImp
     protected T demoEntity;
     @Setter
     private V demoEntityVO;
-    @Setter
-    private D demoEntityDTO;
+
+    @Override
+    public void validData(T entity) {
+        if(entity == null) {
+            throw new CustomException(CodeEnum.PARAM_ERROR);
+        }
+        // todo:用户自己的校验逻辑
+    }
+
+    @Override
+    public QueryWrapper<T> anaQueryWrapper(T entity) {
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
+        if(entity == null) {
+            return queryWrapper;
+        }
+        // todo:用户自己的逻辑查询
+        return queryWrapper;
+    }
 
     /**
      *  将pojo类转换为vo类
@@ -64,7 +82,7 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V, D> extends ServiceImp
      * @return V
      */
     @Override
-    public T dtoToPO(D dtoDemo) {
+    public T dtoToPO(Object dtoDemo) {
         // 创建一个entity类用于接受值
         T entity = getEntity();
         DataUtil.pojoTransfer(dtoDemo, entity);
@@ -77,7 +95,7 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V, D> extends ServiceImp
      * @return List<T>
      */
     @Override
-    public List<T> dtoToPO(List<D> dtoDemoList) {
+    public List<T> dtoToPO(List<Object> dtoDemoList) {
         return dtoDemoList.stream().map(this::dtoToPO).collect(Collectors.toList());
     }
 
@@ -142,23 +160,5 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V, D> extends ServiceImp
             throw new RuntimeException(e);
         }
         return entityVO;
-    }
-
-    /**
-     *  返回一个实例化过后的DTO对象
-     * @param
-     * @return V
-     */
-    private D getEntityDTO() {
-        // 借助 demoEntityDTO 创建对象
-        D entityDTO = null;
-        try {
-            entityDTO = (D) demoEntityDTO.getClass().newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        return entityDTO;
     }
 }

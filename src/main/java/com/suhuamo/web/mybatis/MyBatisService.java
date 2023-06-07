@@ -110,15 +110,13 @@ public class MyBatisService {
         String replace = parent.replace(".", "/");
         // 获取 entity 文件夹
         File fileDirectory = new File(outputDir + "/" + replace + '/' + entity);
-        // 创建vo，dto文件夹
+        // 创建vo
         File voFileDirectory = new File(fileDirectory + "/vo");
-        File dtoDileDirectory = new File(fileDirectory + "/dto");
         voFileDirectory.mkdir();
-        dtoDileDirectory.mkdir();
         // 获取每一个文件
         for (File file : fileDirectory.listFiles()) {
-            // 忽略 R.java文件
-            if(file.getName().equals("R.java")) {
+            // 忽略 BaseResponse.java文件
+            if(file.getName().equals("BaseResponse.java")) {
                 continue;
             }
             // 对 java文件操作，而不是文件夹
@@ -130,9 +128,19 @@ public class MyBatisService {
                 String pojoFile = file.getAbsolutePath();
                 // 读取内容
                 String content = readFile(pojoFile);
-                // 创建vo和dto文件
+                // 创建vo
                 creatVO(name, pojoFile, content, entity, "vo", "VO");
-                creatVO(name, pojoFile, content, entity, "dto", "DTO");
+                // 首字母小写
+                String firstLetter = name.substring(0, 1).toLowerCase();
+                String restLetters = name.substring(1);
+                String result = firstLetter + restLetters;
+                // 创建dto文件夹
+                File dtoDileDirectory = new File(fileDirectory + "/dto/" + result);
+                dtoDileDirectory.mkdirs();
+                // 创建dto文件
+                creatVO(name, pojoFile, content, entity, "dto/" + result, "AddDTO");
+                creatVO(name, pojoFile, content, entity, "dto/" + result, "UpdateDTO");
+                creatVO(name, pojoFile, content, entity, "dto/" + result, "QueryDTO");
             }
         }
     }
@@ -162,6 +170,9 @@ public class MyBatisService {
             } else {
                 // 包路径需要修改
                 if (line.startsWith("package")) {
+                    if(directory.contains("/")) {
+                        directory = directory.replace("/", ".");
+                    }
                     String vo_line = line.replaceAll(entity, entity + "." + directory);
                     voContentList.add(vo_line);
                 }

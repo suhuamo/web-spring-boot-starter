@@ -17,6 +17,13 @@
         自定义的web配置类
     </description>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://www.jitpack.io</url>
+        </repository>
+    </repositories>
+
     <properties>
         <!--  设置编译jdk版本17      -->
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,6 +38,9 @@
         <jjwt.version>0.9.0</jjwt.version>
         <jaxb.version>2.3.0</jaxb.version>
         <activation.version>1.1.1</activation.version>
+        <suhuamo-util.version>1.0.0</suhuamo-util.version>
+        <swagger.version>2.0.2</swagger.version>
+        <knife4j.version>4.1.0</knife4j.version>
     </properties>
 
     <dependencies>
@@ -148,10 +158,19 @@
         <!--   javax依赖包-end  包含了JwtUtil中使用的签名加密算法：SignatureAlgorithm     -->
         <!--        自定义的工具类-->
         <dependency>
-            <groupId>com.suhuamo</groupId>
+            <groupId>com.github.suhuamo</groupId>
             <artifactId>util</artifactId>
-            <version>1.0.0</version>
+            <version>${suhuamo-util.version}</version>
         </dependency>
+        <!--        knife4j包含了swagger -->
+        <!-- https://doc.xiaominfo.com/knife4j/documentation/get_start.html-->
+        <!--        访问地址:http://ip:port/doc.html-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -169,6 +188,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!--   配置maven项目的参数属性 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>   <!-- 指定源代码版本 -->
+                    <target>1.8</target>   <!-- 指定目标字节码版本 -->
+                    <encoding>UTF-8</encoding>  <!-- 指定项目的字符版本 -->
+                </configuration>
             </plugin>
         </plugins>
     </build>

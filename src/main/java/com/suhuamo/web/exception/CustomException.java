@@ -1,6 +1,6 @@
-package com.suhuamo.web.common.exception;
+package com.suhuamo.web.exception;
 
-import com.suhuamo.web.common.enums.CodeEnum;
+import com.suhuamo.web.enums.CodeEnum;
 import lombok.Getter;
 
 /**
@@ -10,7 +10,7 @@ import lombok.Getter;
  * 自定义异常
  */
 @Getter
-public class CustomException extends Exception  {
+public class CustomException extends RuntimeException  {
 
     /**
      * 异常code码

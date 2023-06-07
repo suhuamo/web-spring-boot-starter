@@ -1,7 +1,7 @@
 package com.suhuamo.web.jwt;
 
-import com.suhuamo.web.common.enums.CodeEnum;
-import com.suhuamo.web.common.exception.CustomException;
+import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.exception.CustomException;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +30,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
  *      统一的用户权限校验（是否登录）
  * 2.判断用户是否具有当前访问接口的权限
  */
-@Slf4j
 public class JwtInterceptor implements HandlerInterceptor {
 
     private JwtProperties jwtProperties;
@@ -52,7 +51,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("当前进入的接口为:{}",request.getRequestURL());
         // 如果是OPTIONS则默认直接通过，使得OPTIONS的下一个请求能够正常调用--实现跨域的关键
         if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
             response.setStatus(HttpStatus.NO_CONTENT.value());
@@ -69,7 +67,6 @@ public class JwtInterceptor implements HandlerInterceptor {
             if (claims != null) {
                 // 判断当前 token 是否过期
                 if(jwtService.isExpired(claims)) {
-                    log.info("当前请求附带的token值已过期");
                     throw new CustomException(CodeEnum.UNAUTHORIZED_EXPIRE);
                 }
                 request.setAttribute(jwtProperties.getClaimsName(), claims);
@@ -77,7 +74,6 @@ public class JwtInterceptor implements HandlerInterceptor {
             }
         // 否则抛出未授权信息错误
         } else {
-            log.info("当前请求未附带token值");
             throw new CustomException(CodeEnum.UNAUTHORIZED_NONE);
         }
         return false;

@@ -85,7 +85,7 @@ public class exampleTest {
      * 查询所有数据
      *
      * @param
-     * @return R
+     * @return BaseResponse
      */
     @GetMapping("/all")
     public R all(){
@@ -97,7 +97,7 @@ public class exampleTest {
      *
      * @param condition 匹配查询的内容，Map<String, List<Pair<String, Object>>> ，第一个String为匹配模式，like、eq等，
      *                  List<Pair<String, Object>>为匹配的内容，first为项，second为值
-     * @return R
+     * @return BaseResponse
      */
     @GetMapping("/allByCondition")
     public R allByCondition(@RequestParam Map<String, List<Pair<String, Object>>> condition) {
@@ -111,7 +111,7 @@ public class exampleTest {
      * @param condition 模糊查询的条件-
      *                     Map<String, List<Pair<String, Object>>>第一个String为匹配模式，like、eq等，
      *                     List<Pair<String, Object>>为匹配的内容，first为项，second为值
-     * @return R
+     * @return BaseResponse
      */
     @GetMapping("/list")
     public R list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam("condition") Map<String, List<Pair<String, Object>>> condition){
@@ -120,7 +120,7 @@ public class exampleTest {
     /**
      *  根据id查询数据
      * @param id
-     * @return R
+     * @return BaseResponse
      */
     @GetMapping("/{id}")
     public R getById(@PathVariable("id") Integer id) {
@@ -130,7 +130,7 @@ public class exampleTest {
      * 添加数据
      *
      * @param entityDTO
-     * @return R
+     * @return BaseResponse
      */
     @PostMapping("/add")
     public R add(@RequestBody D entityDTO){

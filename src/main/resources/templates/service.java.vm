@@ -1,9 +1,8 @@
 package ${package.Service};
 
 ## import ${superServiceClassPackage};
-import com.suhuamo.web.component.service.WebService;
+import com.suhuamo.web.component.WebService;
 import ${package.Entity}.${entity};
-import ${package.Entity}.dto.${entity}DTO;
 import ${package.Entity}.vo.${entity}VO;
 
 /**
@@ -12,10 +11,10 @@ import ${package.Entity}.vo.${entity}VO;
  * </p>
  *
  * @author ${author}
- * @slogan 想和喜欢的人睡在冬日的暖阳里
  * @date ${date}
+ * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
-public interface ${table.serviceName} extends WebService<${entity}, ${entity}VO ,${entity}DTO> {
+public interface ${table.serviceName} extends WebService<${entity}, ${entity}VO> {
 
 
 }

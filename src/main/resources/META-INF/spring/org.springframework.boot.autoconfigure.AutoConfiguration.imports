@@ -1,6 +1,7 @@
-com.suhuamo.web.jwt.JwtAutoConfiguration
-com.suhuamo.web.mvc.MvcAutoConfiguration
-com.suhuamo.web.mybatis.MyBatisAutoConfiguration
-com.suhuamo.web.controller.CustomErrorController
-com.suhuamo.web.handler.CustomExceptionHandler
-com.suhuamo.web.handler.MyMetaObjectHandler
+com.suhuamo.web.autoconfig.BeanAutoConfiguration
+com.suhuamo.web.autoconfig.CrosAutoConfiguration
+com.suhuamo.web.autoconfig.CustomErrorController
+com.suhuamo.web.autoconfig.CustomExceptionHandler
+com.suhuamo.web.autoconfig.JwtAutoConfiguration
+com.suhuamo.web.autoconfig.MyBatisAutoConfiguration
+com.suhuamo.web.autoconfig.MyMetaObjectHandler

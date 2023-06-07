@@ -1,7 +1,7 @@
-package com.suhuamo.web.controller;
+package com.suhuamo.web.autoconfig;
 
-import com.suhuamo.web.common.enums.CodeEnum;
-import com.suhuamo.web.component.R;
+import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.common.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,6 @@ import java.util.Map;
  * @date 2023/03/16
  * 自定义-请求错误时进入的控制器
  */
-// 当 application.yml 中存在 custom-web.enable=true 参数时配置类才会生效
 @ConditionalOnProperty(prefix = "suhuamo.web", name = {"enable", "error-controller.enable"}, havingValue = "true", matchIfMissing = true)
 @Controller
 @RequestMapping("/error")
@@ -64,17 +63,17 @@ public class CustomErrorController extends AbstractErrorController {
 
     /**
      *  处理ajax请求
-     *  修改返回类型： R
+     *  修改返回类型： BaseResponse
      *  加上日常处理日志
      * @param request
-     * @return R
+     * @return BaseResponse
      */
     @RequestMapping
     @ResponseBody
-    public R error(HttpServletRequest request) {
+    public BaseResponse error(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
         if (status == HttpStatus.NO_CONTENT) {
-            return R.error(CodeEnum.NO_CONTENT.getCode(), CodeEnum.NO_CONTENT.getDesc());
+            return BaseResponse.error(CodeEnum.NO_CONTENT.getCode(), CodeEnum.NO_CONTENT.getDesc());
         }
         Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions());
         String code = body.get("status").toString();
@@ -84,7 +83,7 @@ public class CustomErrorController extends AbstractErrorController {
         } else {
             log.error("ajax请求发生错误，错误原因为:...没有内容");
         }
-        return R.error(Integer.parseInt(code), message);
+        return BaseResponse.error(Integer.parseInt(code), message);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.suhuamo.web.handler;
+package com.suhuamo.web.autoconfig;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;

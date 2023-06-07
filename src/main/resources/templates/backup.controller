@@ -14,8 +14,8 @@ import ${package.Entity}.vo.${entity}VO;
 /**
  *
  * @author ${author}
- * @slogan 想和喜欢的人睡在冬日的暖阳里
  * @date ${date}
+ * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
 @Slf4j
 @RestController

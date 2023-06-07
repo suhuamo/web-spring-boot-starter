@@ -1,8 +1,10 @@
-package com.suhuamo.web.mybatis;
+package com.suhuamo.web.autoconfig;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.suhuamo.web.mybatis.MyBatisProperties;
+import com.suhuamo.web.mybatis.MyBatisService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

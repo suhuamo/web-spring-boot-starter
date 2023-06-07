@@ -1,13 +1,44 @@
-#这里写上是用于测试项目的，外部引用starter生效的yml是在 config/application.yml 中
-#spring:
-#  #数据源配置，
-#  datasource:
-#    username: root
-#    password: 123456
-#    url: jdbc:mysql://localhost:3306/books_management_system?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&
-#    driver‐class‐name: com.mysql.cj.jdbc.Driver
-#    type: com.alibaba.druid.pool.DruidDataSource
-#suhuamo:
-#  chinese:
-#    say: 你好
-#    msg: haha
+# 作者用来测试的配置文件
+server:
+  port: 20000
+spring:
+  #数据源配置
+  datasource:
+    username: root
+    password: 123456
+    # useSSL=false一定要写在第一个，否则很容易莫名其妙报错
+    url: jdbc:mysql://localhost:3306/springboot?useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+# web-starter的配置
+suhuamo:
+  web:
+    mybatis:
+      # 生成的包路径
+      parent: com.suhuamo.example
+      # 需要自动生成代码的数据库表
+      tables:
+        - emp
+        - dept
+      # 生成代码时的java类去掉前缀，可为空
+      tablePrefix:
+        - tbl
+    jwt:
+      enable: true
+    mvc:
+      enable: false
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.suhuamo.example
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
