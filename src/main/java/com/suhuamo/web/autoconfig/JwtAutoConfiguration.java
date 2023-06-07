@@ -1,15 +1,16 @@
 package com.suhuamo.web.autoconfig;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
 import com.suhuamo.web.jwt.JwtInterceptor;
 import com.suhuamo.web.jwt.JwtProperties;
 import com.suhuamo.web.jwt.JwtService;
 import com.suhuamo.web.jwt.JwtWebMvcConfigurer;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author suhuamo
@@ -21,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(JwtProperties.class)
 public class JwtAutoConfiguration {
 
-    JwtProperties jwtProperties;
+    private JwtProperties jwtProperties;
 
     public JwtAutoConfiguration(JwtProperties jwtProperties) {
         this.jwtProperties = jwtProperties;
@@ -41,7 +42,7 @@ public class JwtAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtWebMvcConfigurer jwtWebMvcConfigurer(JwtInterceptor jwtInterceptor, JwtProperties jwtProperties) {
+    public JwtWebMvcConfigurer jwtWebMvcConfigurer(JwtInterceptor jwtInterceptor) {
         return new JwtWebMvcConfigurer(jwtInterceptor, jwtProperties);
     }
 }

@@ -1,15 +1,16 @@
 package com.suhuamo.web.jwt;
 
-import com.suhuamo.web.enums.CodeEnum;
-import com.suhuamo.web.exception.CustomException;
-import io.jsonwebtoken.Claims;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.exception.CustomException;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**
@@ -34,12 +35,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     private JwtProperties jwtProperties;
 
-    /**
-     * 简化获取token数据的代码编写（判断是否登录）
-     * 1.通过request获取请求token信息
-     * 2.从token中解析获取claims
-     * 3.将claims绑定到request域中
-     */
     private JwtService jwtService;
 
     public JwtInterceptor(JwtProperties jwtProperties, JwtService jwtService) {

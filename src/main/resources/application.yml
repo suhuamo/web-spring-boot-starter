@@ -22,9 +22,9 @@ suhuamo:
       tablePrefix:
         - tbl
     jwt:
-      enable: true
-    mvc:
       enable: false
+    cros:
+      enable: true
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:

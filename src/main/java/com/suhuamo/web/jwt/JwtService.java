@@ -10,6 +10,10 @@ import java.util.Date;
  * @author suhuamo
  * @slogan 想和喜欢的人睡在冬日的暖阳里
  * @date 2023/04/08
+ * 简化获取token数据的代码编写（判断是否登录）
+ *   1.通过request获取请求token信息
+ *   2.从token中解析获取claims
+ *   3.将claims绑定到request域中
  */
 public class JwtService {
      private JwtProperties jwtProperties;

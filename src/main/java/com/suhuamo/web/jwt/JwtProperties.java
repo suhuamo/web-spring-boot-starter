@@ -12,6 +12,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class JwtProperties {
     /**
+     * 设置跨域是否启动-给出自动补全
+     */
+    private Boolean enable = true;
+    /**
      *  签名私钥,默认值 y20160606t
      */
     private String key = "y20160606t";

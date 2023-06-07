@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class CrosProperties {
     /**
-     * 设置mvc是否启动
+     * 设置跨域是否启动-给出自动补全
      */
     private Boolean enable = true;
     /**

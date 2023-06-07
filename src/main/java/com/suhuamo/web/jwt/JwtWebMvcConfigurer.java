@@ -1,6 +1,5 @@
 package com.suhuamo.web.jwt;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
 public class JwtWebMvcConfigurer implements WebMvcConfigurer {
-    JwtInterceptor jwtInterceptor;
-    JwtProperties jwtProperties;
+    private JwtInterceptor jwtInterceptor;
+    private JwtProperties jwtProperties;
 
     public JwtWebMvcConfigurer(JwtInterceptor jwtInterceptor, JwtProperties jwtProperties) {
         this.jwtInterceptor = jwtInterceptor;
@@ -24,7 +23,6 @@ public class JwtWebMvcConfigurer implements WebMvcConfigurer {
      * @param registry
      * @return void
      */
-    @ConditionalOnProperty(prefix = "suhuamo.web", name = {"enable", "jwt.enable"}, havingValue = "true", matchIfMissing = true)
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor) // 添加自定义拦截器
