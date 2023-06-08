@@ -41,6 +41,7 @@ springdoc:
   group-configs:
     - group: 'default'
       paths-to-match: '/**'
+      # 配置哪些包需要额外扫描添加到文档中，默认@Controller的都会自动添加
       packages-to-scan: ${suhuamo.web.mybatis.parent:com.suhuamo.web}
 # knife4j的增强配置，不需要增强可以不配
 knife4j:

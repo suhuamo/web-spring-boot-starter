@@ -12,6 +12,7 @@ import com.suhuamo.web.enums.CodeEnum;
 import com.suhuamo.web.exception.CustomException;
 
 import lombok.Setter;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author suhuamo
@@ -96,7 +97,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<T>
      */
     @GetMapping("/get")
-    public BaseResponse<T> getById(Long id) {
+    public BaseResponse<T> getById(@RequestParam("id") Long id) {
         if(id < 0) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }
@@ -113,7 +114,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<V>
      */
     @GetMapping("/get/vo")
-    public BaseResponse<V> getVOById(Long id) {
+    public BaseResponse<V> getVOById(@RequestParam("id")Long id) {
         if(id < 0) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }

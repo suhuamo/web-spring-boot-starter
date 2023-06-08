@@ -36,7 +36,7 @@ public class BeanAutoConfiguration implements EnvironmentAware {
                 "本机: \t\t http://localhost:" + port + "/\n\t" +
                 "外部访问: \t http://" + ip + ":" + port + "/\n\t" +
                 "Swagger文档: \t http://localhost:" + port + "/swagger-ui/index.html\n\t" +
-                "Knife4j增强文档: \t http://localhost:" + port + "/doc.html\n\t" +
+                "Knife4j增强文档: \t http://localhost:" + port + "/doc.html\n" +
                 "----------------------------------------------------------");
     }
 }
