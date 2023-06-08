@@ -2,6 +2,7 @@ package com.suhuamo.web.common;
 
 import com.suhuamo.web.constant.CommonConstant;
 import lombok.Data;
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author suhuamo
@@ -9,7 +10,7 @@ import lombok.Data;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
 @Data
-public class PageRequest {
+public class PageRequest<T> {
 
     /**
      * 当前页号
@@ -30,4 +31,6 @@ public class PageRequest {
      * 排序顺序（默认升序）
      */
     private String sortOrder = CommonConstant.SORT_ORDER_ASC;
+
+    private T condition;
 }

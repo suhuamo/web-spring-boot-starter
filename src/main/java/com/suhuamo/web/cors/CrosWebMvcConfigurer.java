@@ -2,6 +2,7 @@ package com.suhuamo.web.cors;
 
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CrosWebMvcConfigurer implements WebMvcConfigurer {
 
     CrosProperties crosProperties;
+
 
     public CrosWebMvcConfigurer(CrosProperties crosProperties) {
         this.crosProperties = crosProperties;
@@ -30,7 +32,9 @@ public class CrosWebMvcConfigurer implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") //映射服务器中哪些http接口运行跨域访问
                 .allowedOrigins(crosProperties.getAllowedOrigins().toArray(new String[0])) // 配置哪些来源有权跨域，可以防止其他人的跨域攻击。
-                .allowedMethods("GET", "POST", "DELETE", "PUT") // 允许跨域的方法，可以单独配置
-                .allowedHeaders("*");  // 允许跨域的请求头，可以单独配置，在这里配置无效，不知道为什么，具体实现在 jwtInterceptor实现了。
+                .allowedMethods("*") // 允许跨域的方法，可以单独配置
+                .allowedHeaders("*") // 允许跨域的请求头，可以单独配置，在这里配置无效，不知道为什么，具体实现在 jwtInterceptor实现了。
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }

@@ -44,7 +44,7 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V> extends ServiceImpl<M
     }
 
     @Override
-    public QueryWrapper<T> anaQueryWrapper(T entity) {
+    public QueryWrapper<T> getQueryWrapper(T entity) {
         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         if(entity == null) {
             return queryWrapper;

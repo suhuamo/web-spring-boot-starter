@@ -1,6 +1,7 @@
 package com.suhuamo.web.autoconfig;
 
 import java.net.InetAddress;
+import java.util.Objects;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.EnvironmentAware;
@@ -10,6 +11,7 @@ import org.springframework.core.env.Environment;
 import jakarta.validation.constraints.NotNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 /**
  * @author suhuamo
@@ -29,6 +31,9 @@ public class BeanAutoConfiguration implements EnvironmentAware {
     public void setEnvironment(@NotNull Environment environment) {
         String ip = InetAddress.getLocalHost().getHostAddress();
         String port = environment.getProperty("server.port");
+        if(Objects.isNull(port)) {
+            port = "8080";
+        }
         log.info("");
         log.info("\n################## 苏花末的自定义web-starter启动成功 ####################"+
                 "\n----------------------------------------------------------\n\t" +

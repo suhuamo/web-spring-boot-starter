@@ -22,6 +22,20 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 
+# mybatis-plus配置
+mybatis-plus:
+  configuration:
+    # 日志输出方式
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+  # .xml 文件的映射位置，不写会报错
+  mapper-locations: classpath:${suhuamo.web.mybatis.parent}/mapper/xml/*.xml
+  global-config:
+    db-config:
+      # 设置忽略表名前缀
+      table-prefix: ${suhuamo.web.mybatis.tablePrefix[0]}
+
 ## 配置suhuamo.web的默认属性
 suhuamo:
   web:

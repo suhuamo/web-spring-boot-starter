@@ -1,5 +1,6 @@
 package com.suhuamo.web.component;
 
+import com.suhuamo.web.annotation.LogExecutionTime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -128,35 +129,35 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
 
     /**
      *  分页获取数据（全部字段，建议设置管理员权限）
-     * @param entityQueryDTO
+     * @param pageRequest
      * @return BaseResponse<Page<T>>
      */
     @PostMapping("/list/page")
-    public BaseResponse<Page<T>> getListByPage(QD entityQueryDTO, PageRequest pageRequest) {
+    public BaseResponse<Page<T>> getListByPage(@RequestBody PageRequest<QD> pageRequest) {
         long current = pageRequest.getCurrent();
         long size = pageRequest.getPageSize();
         T entity = null;
-        if(entityQueryDTO != null) {
-            entity = (T)baseService.dtoToPO(entityQueryDTO);
+        if(pageRequest.getCondition() != null) {
+            entity = (T)baseService.dtoToPO(pageRequest.getCondition());
         }
-        Page<T> entityPage = (Page<T>) baseService.page(new Page<T>(current,size), baseService.anaQueryWrapper(entity));
+        Page<T> entityPage = (Page<T>) baseService.page(new Page<T>(current,size), baseService.getQueryWrapper(entity));
         return BaseResponse.ok(entityPage);
     }
 
     /**
      *  分页获取包装类数据
-     * @param entityQueryDTO
+     * @param pageRequest
      * @return BaseResponse<Page<V>>
      */
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<V>> getVOListByPage(QD entityQueryDTO, PageRequest pageRequest) {
+    public BaseResponse<Page<V>> getVOListByPage(@RequestBody PageRequest<QD> pageRequest) {
         long current = pageRequest.getCurrent();
         long size = pageRequest.getPageSize();
         T entity = null;
-        if(entityQueryDTO != null) {
-            entity = (T)baseService.dtoToPO(entityQueryDTO);
+        if(pageRequest.getCondition() != null) {
+            entity = (T)baseService.dtoToPO(pageRequest.getCondition());
         }
-        Page<V> entityVOPage = (Page<V>) baseService.pageVO(new Page<T>(current,size), baseService.anaQueryWrapper(entity));
+        Page<V> entityVOPage = (Page<V>) baseService.pageVO(new Page<T>(current,size), baseService.getQueryWrapper(entity));
         return BaseResponse.ok(entityVOPage);
     }
 

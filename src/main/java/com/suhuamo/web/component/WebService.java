@@ -27,7 +27,7 @@ public interface WebService<T, V> extends IService<T> {
      * @param entity
      * @return QueryWrapper<T>
      */
-    QueryWrapper<T> anaQueryWrapper(T entity);
+    QueryWrapper<T> getQueryWrapper(T entity);
 
     /**
      *  将pojo类转换为vo类
