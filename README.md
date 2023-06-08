@@ -78,6 +78,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://www.jitpack.io</url>
+    </repository>
+  </repositories>
+
     <dependencies>
         <!--        自定义的web类-->
         <dependency>
