@@ -3,6 +3,9 @@ package com.suhuamo.web.cors;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author suhuamo
  * @slogan 想和喜欢的人睡在冬日的暖阳里
@@ -18,6 +21,6 @@ public class CrosProperties {
     /**
      * 设置配置哪些来源有权跨域，默认 http://localhost:8080
      */
-    private String[] allowedOrigins = {"http://localhost:8080"};
+    private List<String> allowedOrigins = Arrays.asList(new String[]{"http://localhost:8080"});
 
 }

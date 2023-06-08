@@ -29,7 +29,7 @@ public class CrosWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") //映射服务器中哪些http接口运行跨域访问
-                .allowedOrigins(crosProperties.getAllowedOrigins()) // 配置哪些来源有权跨域，可以防止其他人的跨域攻击。
+                .allowedOrigins(crosProperties.getAllowedOrigins().toArray(new String[0])) // 配置哪些来源有权跨域，可以防止其他人的跨域攻击。
                 .allowedMethods("GET", "POST", "DELETE", "PUT") // 允许跨域的方法，可以单独配置
                 .allowedHeaders("*");  // 允许跨域的请求头，可以单独配置，在这里配置无效，不知道为什么，具体实现在 jwtInterceptor实现了。
     }

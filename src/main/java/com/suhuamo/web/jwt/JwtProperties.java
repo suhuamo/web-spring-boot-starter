@@ -3,6 +3,9 @@ package com.suhuamo.web.jwt;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author suhuamo
  * @slogan 想和喜欢的人睡在冬日的暖阳里
@@ -43,6 +46,6 @@ public class JwtProperties {
     /**
      * 设置拦截器排除的规则，默认 /user/login
      */
-    private String[] excludePathPatterns = {"/user/login"};
+    private List<String> excludePathPatterns = Arrays.asList(new String[]{"/user/login"});
 
 }
