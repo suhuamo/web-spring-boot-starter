@@ -1,3 +1,4 @@
+com.suhuamo.web.autoconfig.AopAutoConfiguration
 com.suhuamo.web.autoconfig.BeanAutoConfiguration
 com.suhuamo.web.autoconfig.CrosAutoConfiguration
 com.suhuamo.web.autoconfig.CustomErrorController

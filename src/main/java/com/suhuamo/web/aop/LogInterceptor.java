@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
  * 请求响应日志AOP
  */
 @Aspect
-@Component
 @Slf4j
 public class LogInterceptor {
 
