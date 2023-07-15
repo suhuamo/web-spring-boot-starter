@@ -1,5 +1,6 @@
 package com.suhuamo.web.autoconfig;
 
+import com.suhuamo.web.constant.HttpConstant;
 import com.suhuamo.web.enums.CodeEnum;
 import com.suhuamo.web.common.BaseResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,12 +54,12 @@ public class CustomErrorController extends AbstractErrorController {
         Map<String, Object> model = Collections.unmodifiableMap(this.getErrorAttributes(request, this.getErrorAttributeOptions()));
         response.setStatus(status.value());
         ModelAndView modelAndView = this.resolveErrorView(request, response, status, model);
-        if(model.get("trace") != null) {
-            log.error("页面请求发生错误，错误原因为:" + model.get("trace").toString());
+        if(model.get(HttpConstant.TRACE_TEXT) != null) {
+            log.error("页面请求发生错误，错误原因为:" + model.get(HttpConstant.TRACE_TEXT).toString());
         } else {
-            log.error("页面请求发生错误，错误原因为:...没有内容");
+            log.error("页面请求发生错误，错误原因为:...没有请求目标内容");
         }
-        return modelAndView != null ? modelAndView : new ModelAndView("error", model);
+        return modelAndView != null ? modelAndView : new ModelAndView(HttpConstant.ERROR_TEXT, model);
     }
 
     /**
@@ -76,10 +77,10 @@ public class CustomErrorController extends AbstractErrorController {
             return BaseResponse.error(CodeEnum.NO_CONTENT.getCode(), CodeEnum.NO_CONTENT.getDesc());
         }
         Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions());
-        String code = body.get("status").toString();
-        String message = body.get("message").toString();
-        if(body.get("trace") != null) {
-            log.error("ajax请求发生错误，错误原因为:" + body.get("trace").toString());
+        String code = body.get(HttpConstant.STATUS_TEXT).toString();
+        String message = body.get(HttpConstant.MESSAGE_TEXT).toString();
+        if(body.get(HttpConstant.TRACE_TEXT) != null) {
+            log.error("ajax请求发生错误，错误原因为:" + body.get(HttpConstant.TRACE_TEXT).toString());
         } else {
             log.error("ajax请求发生错误，错误原因为:...没有内容");
         }

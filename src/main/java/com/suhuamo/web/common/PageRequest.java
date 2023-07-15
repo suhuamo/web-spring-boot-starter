@@ -1,6 +1,7 @@
 package com.suhuamo.web.common;
 
 import com.suhuamo.web.constant.CommonConstant;
+import com.suhuamo.web.constant.MysqlConstant;
 import lombok.Data;
 import org.apache.poi.ss.formula.functions.T;
 
@@ -30,7 +31,7 @@ public class PageRequest<T> {
     /**
      * 排序顺序（默认升序）
      */
-    private String sortOrder = CommonConstant.SORT_ORDER_ASC;
+    private String sortOrder = MysqlConstant.SORT_ORDER_ASC;
 
     private T condition;
 }

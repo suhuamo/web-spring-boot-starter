@@ -195,11 +195,12 @@ public class MainTest {
 }
 ```
 **注意：Test类一定得和@SpringBootApplication所在的类（即启动类）处于同一个路径，否则Test类运行是不会生效的，位置如图**
-![img_2.png](img_2.png)
+![img_2.png](.\assets\img_1.png)
 
 ### 五、最终步骤
+
 ​	点击运行 Test类中的`GeneratorCodeTest` 方法后可发现代码已自动生成：如下
-![img_1.png](img_1.png)
+![.\assets\img_2.png](.\assets\img_2.png)
 
 ## 系统介绍
 ​	目前整个系统分为两大模块
@@ -213,7 +214,7 @@ public class MainTest {
    3. `UpdateDTO`:用于添加接口接受前端的数据
 2. 对应输出给前端显示的数据VO，这样的话可以选择将某些关键信息不传给前端，或者要做一些数据的转换，如sex的0/1转换为男/女，枚举的数字转换为对应的String。
 3. 对应数据库的实体类，生成的封装类是和数据库字段完全对应的，用于交互数据库。
-![img_3.png](img_3.png)
+  ![.\assets\img_3.png](.\assets\img_3.png)
 #### 2.自动生成service、mapper类
 - 典型的service类和mapper类的生成，只不过每个service类中默认注入了对应的mapper，名称为`baseMapper`
 - 提供了自定义的方法

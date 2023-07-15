@@ -7,7 +7,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/springboot?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
+    url: jdbc:mysql://localhost:3306/ai_ks?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
 # web-starter相关配置
 suhuamo:
   web:
@@ -22,8 +22,7 @@ suhuamo:
       parent: com.suhuamo.test
       # 需要自动生成代码的数据库表
       tables:
-        - tbl_dept
-        - tbl_emp
+        - t_test_export
       # 生成代码时的java类去掉前缀，可为空
       tablePrefix:
-        - tbl_
+        - t_
