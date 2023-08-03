@@ -156,15 +156,9 @@
             <version>${activation.version}</version>
         </dependency>
         <!--   javax依赖包-end  包含了JwtUtil中使用的签名加密算法：SignatureAlgorithm     -->
-        <!--        自定义的工具类-->
-        <dependency>
-            <groupId>com.github.suhuamo</groupId>
-            <artifactId>util</artifactId>
-            <version>${suhuamo-util.version}</version>
-        </dependency>
         <!--        knife4j包含了swagger -->
-        <!-- https://doc.xiaominfo.com/knife4j/documentation/get_start.html-->
-        <!--        访问地址:http://ip:port/doc.html-->
+            <!-- https://doc.xiaominfo.com/knife4j/documentation/get_start.html-->
+            <!--        访问地址:http://ip:port/doc.html-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>

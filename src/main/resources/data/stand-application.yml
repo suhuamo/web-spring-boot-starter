@@ -1,65 +1,23 @@
-# 一份标准的全局配置文件
 server:
-  port: 8081
+  # 配置项目端口
+  port: 20000
+# spring相关配置
 spring:
-  # 选择环境
-  profiles:
-    active: dev
-  # 模板引擎配置
-  freemarker:
-    # 设置是否页面运行缓存，开发项目时不需要，避免页面没有变化，生成项目需要设置为true，减少刷新时间
-    cache: false
-    charset: utf-8
-    suffix: .html
   #数据源配置
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/online_ide?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
-    driver‐class‐name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    # 数据源其他参数配置
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-    filters: stat,wall
-    maxPoolPreparedStatementPerConnectionSize: 20
-    useGlobalDataSourceStat: true
-    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-    # 设置启动druid页面，使得可以网页打开
-    druid:
-      stat-view-servlet:
-        enabled: true
-        # 不配置账号密码则可以免密登录
-        login-username: admin
-        login-password: 123456
-  # sql文件初始化
-  sql:
-    init:
-      # 设置项目启动时自动运行的sql文件
-      schema-locations: classpath:sql/springboot.sql
-      # 设置项目启动时 schema 的运行次数， ALWAYS是每次启动项目都运行sql文件，所以可以在第一次启动项目时使用，之后就注释掉该参数或者设置为NEVER
-      mode: never
-
-# mybatis-plus配置
-mybatis-plus:
-  configuration:
-    # 日志输出方式
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-    call-setters-on-nulls: true
-  # .xml 文件的映射位置，不写会报错
-  mapper-locations: classpath:com/suhuamo/ide/mapper/xml/*.xml
-  global-config:
-    db-config:
-      # 设置忽略表名前缀
-      table-prefix: ide_
+    url: jdbc:mysql://localhost:3306/springboot?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
+# web-starter相关配置
+suhuamo:
+  web:
+    mybatis:
+      # 生成的包路径，同时也是项目的父目录
+      parent: com.suhuamo.test
+      # 需要自动生成代码的数据库表
+      tables:
+        - tbl_dept
+        - tbl_emp
+      # 生成代码时的java类去掉前缀，可为空
+      tablePrefix:
+        - tbl_

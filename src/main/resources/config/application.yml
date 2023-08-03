@@ -27,14 +27,17 @@ mybatis-plus:
   configuration:
     # 日志输出方式
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 自动驼峰命名
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
   # .xml 文件的映射位置，不写会报错
   mapper-locations: classpath:${suhuamo.web.mybatis.parent}/mapper/xml/*.xml
+  # 全局策略配置
   global-config:
     db-config:
       # 设置忽略表名前缀
       table-prefix: ${suhuamo.web.mybatis.tablePrefix[0]}
+# 逻辑删除，别名
 
 ## 配置suhuamo.web的默认属性
 suhuamo:

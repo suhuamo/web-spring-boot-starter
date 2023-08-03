@@ -2,7 +2,7 @@ package com.suhuamo.web.mybatis;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.suhuamo.util.thread.ThreadPoolUtil;
+import com.suhuamo.web.util.ThreadPoolUtil;
 
 import java.io.*;
 import java.util.ArrayList;
