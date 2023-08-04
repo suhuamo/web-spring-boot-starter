@@ -6,14 +6,20 @@ package com.suhuamo.web.constant;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  * 通用常量
  */
-public interface CommonConstant {
+public class CommonConstant {
     /**
      * 升序
      */
-    String SORT_ORDER_ASC = "ascend";
+    public static final String SORT_ORDER_ASC = "ascend";
 
     /**
      * 降序
      */
-    String SORT_ORDER_DESC = " descend";
+    public static final String SORT_ORDER_DESC = " descend";
+
+    /**
+     * 常量类不允许new
+     */
+    private CommonConstant() {
+    }
 }

@@ -25,8 +25,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName(MysqlConstant.CREATE_Time_FILED, LocalDateTime.now(), metaObject);
-        this.setFieldValByName(MysqlConstant.UPDATE_Time_FILED, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(MysqlConstant.CREATE_TIME_FILED, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(MysqlConstant.UPDATE_TIME_FILED, LocalDateTime.now(), metaObject);
     }
 
     /**
@@ -36,6 +36,6 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName(MysqlConstant.UPDATE_Time_FILED, LocalDateTime.now(), metaObject);
+        this.setFieldValByName(MysqlConstant.UPDATE_TIME_FILED, LocalDateTime.now(), metaObject);
     }
 }

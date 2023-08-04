@@ -1,12 +1,14 @@
 package ${package.Controller};
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.suhuamo.web.component.WebController;
 import ${package.Service}.${table.serviceName};
+import ${package.Parent}.common.component.Result;
 import ${package.Entity}.${entity};
-import ${package.Entity}.dto.${table.entityPath}.*;
+import ${package.Entity}.dto.${entity}DTO;
 import ${package.Entity}.vo.${entity}VO;
 
 /**
@@ -14,21 +16,80 @@ import ${package.Entity}.vo.${entity}VO;
  * @author ${author}
  * @date ${date}
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
- * 该控制层类对应的 pojo 类型对应的 service 接口已注入 WebController ，名称为 baseService
  */
 @Slf4j
 @RestController
 @RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
-public class ${table.controllerName} extends WebController<${entity}, ${entity}AddDTO, ${entity}UpdateDTO, ${entity}QueryDTO, ${entity}VO, ${entity}Service> {
+public class ${table.controllerName} {
 
-    /**
-     *  向 WebController 注入所需的service接口
-     * @param ${table.entityPath}Service
-     * @return null
-     */
     @Autowired
-    public ${table.controllerName}(${entity}Service ${table.entityPath}Service) {
-        setBaseService(${table.entityPath}Service);
+    private ${table.serviceName} ${table.entityPath}Service;
+    
+    /**
+     * 查询所有数据
+     *
+     * @param
+     * @return Result
+     */
+    @GetMapping("/all")
+    public Result all(){
+            return new Result().Success(${table.entityPath}Service.poToVO(${table.entityPath}Service.list(), new ${entity}VO()));
+    }
+    
+    /**
+     * 通过分页查询获取数据，可选择使用模糊查询
+     *
+     * @param pageNum 页码
+     * @param pageSize 页面数据大小
+     * @param key 条件名
+     * @param value 条件值
+     * @return Result
+     */
+    @GetMapping("/list")
+    public Result list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam(value = "key", required = false) String key,@RequestParam(value = "value", required = false) String value){
+            // 输入了key，value则添加条件查询
+            if(key!=null&&value!=null){
+            return new Result().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize),new QueryWrapper<${entity}>().like(key,value), new ${entity}VO()));
+            }else{
+            return new Result().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize), new ${entity}VO()));
+            }
+    }
+    
+    /**
+     * 添加数据
+     *
+     * @param ${table.entityPath}DTO
+     * @return Result
+     */
+    @PostMapping("/")
+    public Result add(@RequestBody ${entity}DTO ${table.entityPath}DTO){
+        ${entity} ${table.entityPath} =  ${table.entityPath}Service.dtoToPO(${table.entityPath}DTO, new ${entity}());
+        ${table.entityPath}Service.save(${table.entityPath});
+        return new Result().Success(${table.entityPath});
+    }
+    
+    /**
+     * 修改数据
+     *
+     * @param ${table.entityPath}DTO
+     * @return ${entity}
+     */
+    @PutMapping("/")
+    public Result update(@RequestBody ${entity}DTO ${table.entityPath}DTO){
+        ${entity} ${table.entityPath} = ${table.entityPath}Service.dtoToPO(${table.entityPath}DTO, new ${entity}());
+        ${table.entityPath}Service.updateById(${table.entityPath});
+        return new Result().Success();
+    }
+    
+    /**
+     *  删除数据
+     * @param id
+     * @return RespMessage
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable("id") Integer id){
+            ${table.entityPath}Service.removeById(id);
+            return new Result().Success();
     }
 
 

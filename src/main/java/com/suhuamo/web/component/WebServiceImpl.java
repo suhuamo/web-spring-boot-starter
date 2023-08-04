@@ -12,9 +12,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suhuamo.web.enums.CodeEnum;
 import com.suhuamo.web.exception.CustomException;
-import com.suhuamo.web.util.DataUtil;
 
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @author suhuamo
@@ -62,7 +62,8 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V> extends ServiceImpl<M
     public V poToVO(T entity) {
         // 创建一个VO类用于接受值
         V entityVO = getEntityVO();
-        DataUtil.pojoTransfer(entity, entityVO);
+//        BeanUtil.
+        BeanUtils.copyProperties(entity, entityVO);
         return entityVO;
     }
 
@@ -85,7 +86,7 @@ public class WebServiceImpl<M extends BaseMapper<T>, T, V> extends ServiceImpl<M
     public T dtoToPO(Object dtoDemo) {
         // 创建一个entity类用于接受值
         T entity = getEntity();
-        DataUtil.pojoTransfer(dtoDemo, entity);
+        BeanUtils.copyProperties(dtoDemo, entity);
         return entity;
     }
 

@@ -21,6 +21,6 @@ public class CrosProperties {
     /**
      * 设置配置哪些来源有权跨域，默认 http://localhost:8080
      */
-    private List<String> allowedOrigins = Arrays.asList(new String[]{"http://localhost:8080"});
+    private List<String> allowedOrigins = Arrays.asList("http://localhost:8080");
 
 }

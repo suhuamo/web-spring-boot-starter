@@ -46,6 +46,6 @@ public class JwtProperties {
     /**
      * 设置拦截器排除的规则，默认 /user/login
      */
-    private List<String> excludePathPatterns = Arrays.asList(new String[]{"/user/login"});
+    private List<String> excludePathPatterns = Arrays.asList("/user/login");
 
 }

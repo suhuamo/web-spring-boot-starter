@@ -1,9 +1,7 @@
 package com.suhuamo.web.common;
 
-import com.suhuamo.web.constant.CommonConstant;
 import com.suhuamo.web.constant.MysqlConstant;
 import lombok.Data;
-import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author suhuamo

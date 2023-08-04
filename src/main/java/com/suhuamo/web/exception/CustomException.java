@@ -15,11 +15,11 @@ public class CustomException extends RuntimeException  {
     /**
      * 异常code码
      */
-    private CodeEnum codeEnum;
+    private final CodeEnum codeEnum;
     /**
      * 异常信息
      */
-    private String message;
+    private final String message;
 
     public CustomException(CodeEnum codeEnum, String message) {
         this.codeEnum = codeEnum;

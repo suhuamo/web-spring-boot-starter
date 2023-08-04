@@ -42,8 +42,7 @@ public class JwtService {
         // 3.设置失效时间
         jwtBuilder.setExpiration(new Date(exp));
         //4.创建token
-        String token = jwtBuilder.compact();
-        return token;
+        return jwtBuilder.compact();
     }
 
 
@@ -59,11 +58,8 @@ public class JwtService {
                     .setSigningKey(jwtProperties.getKey()) // 设置解析key
                     .parseClaimsJws(token)// 设置需要解析的token
                     .getBody();
-            // 输入错误的token值会出现该异常
-        } catch (SignatureException e) {
-            throw new CustomException(CodeEnum.UNAUTHORIZED_ERROR);
-            // 格式错误异常，例如至少两个 - 符号
-        } catch (MalformedJwtException e) {
+            // 输入错误的token值会出现该异常 || 格式错误异常，例如至少两个 - 符号
+        } catch (SignatureException | MalformedJwtException e) {
             throw new CustomException(CodeEnum.UNAUTHORIZED_ERROR);
             // token过期异常
         } catch (ExpiredJwtException e) {

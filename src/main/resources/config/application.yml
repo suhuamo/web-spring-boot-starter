@@ -29,6 +29,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 自动驼峰命名
     map-underscore-to-camel-case: true
+    # 解决查询数据为空不返回字段
     call-setters-on-nulls: true
   # .xml 文件的映射位置，不写会报错
   mapper-locations: classpath:${suhuamo.web.mybatis.parent}/mapper/xml/*.xml
@@ -37,7 +38,14 @@ mybatis-plus:
     db-config:
       # 设置忽略表名前缀
       table-prefix: ${suhuamo.web.mybatis.tablePrefix[0]}
-# 逻辑删除，别名
+      # 逻辑删除的实体字段名--即java的字段
+      logic-delete-field: delFlag
+      # 逻辑删除的默认值：1
+      logic-delete-value: 1
+      # 逻辑未删除的默认值：1
+      logic-not-delete-value: 0
+  # 别名
+  type-aliases-package: ${suhuamo.web.mybatis.parent}/pojo
 
 ## 配置suhuamo.web的默认属性
 suhuamo:

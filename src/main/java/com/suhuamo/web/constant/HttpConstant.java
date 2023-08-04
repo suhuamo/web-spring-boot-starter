@@ -6,21 +6,27 @@ package com.suhuamo.web.constant;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  * http相关的常量
  */
-public interface HttpConstant {
+public class HttpConstant {
     /**
      * http请求中的字段trace
      */
-    String TRACE_TEXT = "trace";
+    public static final String TRACE_TEXT = "trace";
     /**
      * http请求中的字段error
      */
-    String ERROR_TEXT = "error";
+    public static final String ERROR_TEXT = "error";
     /**
      * http请求中的字段status
      */
-    String STATUS_TEXT = "status";
+    public static final String STATUS_TEXT = "status";
     /**
      * http请求中的字段message
      */
-    String MESSAGE_TEXT = "message";
+    public static final String MESSAGE_TEXT = "message";
+
+    /**
+     * 常量类不允许new
+     */
+    private HttpConstant() {
+    }
 }

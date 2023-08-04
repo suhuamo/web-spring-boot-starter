@@ -3,6 +3,7 @@ package com.suhuamo.web.mybatis;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.suhuamo.web.util.ThreadPoolUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,9 +16,15 @@ import java.util.concurrent.ExecutorService;
  * @date 2023/04/03
  * mybatis-plus代码自动生成器，生成模板在templates文件夹下可修改,注意，该类得使用 mybatis-plus 3.5.3 的版本
  */
+@Slf4j
 public class MyBatisService {
 
     MyBatisProperties myBatisProperties;
+
+    /**
+     * java文件的文件后缀
+     */
+    private final static String JAVA_FILE_SUFFIX = ".java";
 
     public MyBatisService(MyBatisProperties myBatisProperties) {
         this.myBatisProperties = myBatisProperties;
@@ -123,7 +130,7 @@ public class MyBatisService {
             if (!file.isDirectory()) {
                 // 获取JAVA名
                 String name = file.getName();
-                name = name.substring(0, name.lastIndexOf(".java"));
+                name = name.substring(0, name.lastIndexOf(JAVA_FILE_SUFFIX));
                 // 获取文件路径
                 String pojoFile = file.getAbsolutePath();
                 // 读取内容
@@ -157,7 +164,7 @@ public class MyBatisService {
      */
     private void creatVO(String name, String pojoFile, String content, String entity, String directory, String suffix) {
         // 创建vo类文件
-        String voFile = pojoFile.replaceAll(name + ".java", directory + "/" + name + suffix + ".java");
+        String voFile = pojoFile.replaceAll(name + JAVA_FILE_SUFFIX, directory + "/" + name + suffix + JAVA_FILE_SUFFIX);
         // 对内容进行按行分类
         String[] split = content.split("\n");
         // vo内容
@@ -186,9 +193,9 @@ public class MyBatisService {
                     String vo_line = "";
                     // 如果是dto
                     if(suffix.equals("DTO")) {
-                        vo_line = line.replaceAll("数据表实体类", "前端->后端数据传输类");
+                        vo_line = line.replace("数据表实体类", "前端->后端数据传输类");
                     } else {
-                        vo_line = line.replaceAll("数据表实体类", "后端->前端数据显示类");
+                        vo_line = line.replace("数据表实体类", "后端->前端数据显示类");
                     }
                     voContentList.add(vo_line);
                 }
@@ -228,15 +235,15 @@ public class MyBatisService {
         FileInputStream out = new FileInputStream(file);
         InputStreamReader isr = new InputStreamReader(out);
         // 进入读取数据
-        String content = ""; // 返回文件的所有内容
+        StringBuilder content = new StringBuilder(""); // 返回文件的所有内容
         int ch = 0; // 用来接收输入流的每一次数据
         while ((ch = isr.read()) != -1) {
-            content += (char) ch;
+            content.append((char) ch);
         }
         // 关闭流
         isr.close();
         out.close();
-        return content;
+        return content.toString();
     }
 
     /**
@@ -249,9 +256,12 @@ public class MyBatisService {
     private void writeFile(String path, String content) throws IOException {
         // 创建文件
         File file = new File(path);
-        file.createNewFile();
+        if(file.createNewFile()) {
+            log.info("创建{}文件成功",path);
+        }
+
         // 进行写入数据
-        byte bt[] = content.getBytes();
+        byte[] bt = content.getBytes();
         // 以覆盖的形式，加上true参数代表追加
         FileOutputStream in = new FileOutputStream(file);
         in.write(bt, 0, bt.length);

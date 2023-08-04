@@ -6,27 +6,34 @@ package com.suhuamo.web.constant;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  * 数据库字段
  */
-public interface MysqlConstant {
+public class MysqlConstant {
     /**
      * 升序
      */
-    String SORT_ORDER_ASC = "ASC";
+    public static final String SORT_ORDER_ASC = "ASC";
 
     /**
      * 降序
      */
-    String SORT_ORDER_DESC = " DESC";
+    public static final String SORT_ORDER_DESC = " DESC";
     /**
      * 创建时间字段--java参数字段
      */
-    String CREATE_Time_FILED = "createTime";
+    public static final String CREATE_TIME_FILED = "createTime";
     /**
      * 更新时间字段--java参数字段
      */
-    String UPDATE_Time_FILED = "updateTime";
+    public static final String UPDATE_TIME_FILED = "updateTime";
     /**
      * 逻辑删除字段--java参数字段
      */
-    String DELETE_FLAG_FILED = "deleteFlag";
+    public static final String DELETE_FLAG_FILED = "deleteFlag";
 
+
+    /**
+     * 常量类不允许new
+     */
+    private MysqlConstant() {
+
+    }
 }

@@ -92,9 +92,8 @@ public class CustomErrorController extends AbstractErrorController {
      * @return ErrorAttributeOptions
      */
     protected ErrorAttributeOptions getErrorAttributeOptions() {
-        ErrorAttributeOptions options = ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE,
+        return  ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE,
                 ErrorAttributeOptions.Include.STACK_TRACE,
                 ErrorAttributeOptions.Include.EXCEPTION);
-        return options;
     }
 }

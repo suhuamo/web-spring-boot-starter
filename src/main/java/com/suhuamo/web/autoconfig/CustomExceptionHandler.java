@@ -31,12 +31,10 @@ public class CustomExceptionHandler {
         if(e.getClass() == CustomException.class) {
             //类型转型
             CustomException ce = (CustomException) e;
-            BaseResponse result = BaseResponse.error(ce.getCodeEnum().getCode(), ce.getMessage());
-            return result;
+            return BaseResponse.error(ce.getCodeEnum().getCode(), ce.getMessage());
         // 非自定义类型
         }else{
-            BaseResponse result = BaseResponse.error(CodeEnum.SERVER_ERROR);
-            return result;
+            return BaseResponse.error(CodeEnum.SERVER_ERROR);
         }
     }
 }

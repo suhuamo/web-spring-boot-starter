@@ -1,0 +1,35 @@
+package ${package.Controller};
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.suhuamo.web.component.WebController;
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import ${package.Entity}.dto.${table.entityPath}.*;
+import ${package.Entity}.vo.${entity}VO;
+
+/**
+ *
+ * @author ${author}
+ * @date ${date}
+ * @slogan 也许散落在浩瀚宇宙的小行星们也知道
+ * 该控制层类对应的 pojo 类型对应的 service 接口已注入 WebController ，名称为 baseService
+ */
+@Slf4j
+@RestController
+@RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+public class ${table.controllerName} extends WebController<${entity}, ${entity}AddDTO, ${entity}UpdateDTO, ${entity}QueryDTO, ${entity}VO, ${entity}Service> {
+
+    /**
+     *  向 WebController 注入所需的service接口
+     * @param ${table.entityPath}Service
+     * @return null
+     */
+    @Autowired
+    public ${table.controllerName}(${entity}Service ${table.entityPath}Service) {
+        setBaseService(${table.entityPath}Service);
+    }
+
+
+}

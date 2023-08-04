@@ -26,7 +26,7 @@ public class MyBatisProperties {
      * 数据库密码
      */
     private String password = "123456";
-    //全局配置参数
+    // region 全局配置参数
     /**
      * 作者名称
      */
@@ -35,7 +35,8 @@ public class MyBatisProperties {
      * 指定输出目录，默认为当前项目的java文件夹
      */
     private String outputDir = System.getProperty("user.dir") + "\\src\\main\\java";
-    //包配置参数
+    // endregion 全局配置参数
+    // region 包路径参数
     /**
      * 父包名
      */
@@ -64,13 +65,15 @@ public class MyBatisProperties {
      * Controller 包名
      */
     private String controller = "controller";
-    // 数据库表参数
+    // endregion 包路径参数
+    // region 数据库表参数
     /**
      * 要生成的数据库表，可传数组,如 tbl_user, tbl_role
      */
-    private List<String> tables = Arrays.asList(new String[]{"tbl_user"});
+    private List<String> tables = Arrays.asList("tbl_user");
     /**
      * 忽略表前缀，可传数组，如 tbl_, sys_
      */
-    private List<String> tablePrefix = Arrays.asList(new String[]{"tbl_"});
+    private List<String> tablePrefix = Arrays.asList("tbl_");
+    // endregion 数据库表参数
 }
