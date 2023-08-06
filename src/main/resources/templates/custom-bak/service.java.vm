@@ -1,6 +1,6 @@
 package ${package.Service};
 
-import ${superServiceClassPackage};
+## import ${superServiceClassPackage};
 import com.suhuamo.web.component.WebService;
 import ${package.Entity}.${entity};
 import ${package.Entity}.vo.${entity}VO;
@@ -14,7 +14,7 @@ import ${package.Entity}.vo.${entity}VO;
  * @date ${date}
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
-public interface ${table.serviceName} extends IService<${entity}>{
+public interface ${table.serviceName} extends WebService<${entity}, ${entity}VO> {
 
 
 }

@@ -40,10 +40,14 @@ mybatis-plus:
       table-prefix: ${suhuamo.web.mybatis.tablePrefix[0]}
       # 逻辑删除的实体字段名--即java的字段
       logic-delete-field: delFlag
-      # 逻辑删除的默认值：1
+      # 逻辑已删除的默认值：1
       logic-delete-value: 1
       # 逻辑未删除的默认值：1
       logic-not-delete-value: 0
+      # 主键自动生成
+      id-type: AUTO
+      # 更新时默认忽略参数值为null对应的字段，即不更新java的null字段对应的数据库表字段
+      update-strategy: NOT_NULL
   # 别名
   type-aliases-package: ${suhuamo.web.mybatis.parent}/pojo
 

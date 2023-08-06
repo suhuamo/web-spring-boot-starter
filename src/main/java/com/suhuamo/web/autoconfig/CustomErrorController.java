@@ -2,7 +2,7 @@ package com.suhuamo.web.autoconfig;
 
 import com.suhuamo.web.constant.HttpConstant;
 import com.suhuamo.web.enums.CodeEnum;
-import com.suhuamo.web.common.BaseResponse;
+import com.suhuamo.web.common.ResponseResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -71,10 +71,10 @@ public class CustomErrorController extends AbstractErrorController {
      */
     @RequestMapping
     @ResponseBody
-    public BaseResponse error(HttpServletRequest request) {
+    public ResponseResult error(HttpServletRequest request) {
         HttpStatus status = this.getStatus(request);
         if (status == HttpStatus.NO_CONTENT) {
-            return BaseResponse.error(CodeEnum.NO_CONTENT.getCode(), CodeEnum.NO_CONTENT.getDesc());
+            return ResponseResult.error(CodeEnum.NO_CONTENT.getCode(), CodeEnum.NO_CONTENT.getDesc());
         }
         Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions());
         String code = body.get(HttpConstant.STATUS_TEXT).toString();
@@ -84,7 +84,7 @@ public class CustomErrorController extends AbstractErrorController {
         } else {
             log.error("ajax请求发生错误，错误原因为:...没有内容");
         }
-        return BaseResponse.error(Integer.parseInt(code), message);
+        return ResponseResult.error(Integer.parseInt(code), message);
     }
 
     /**

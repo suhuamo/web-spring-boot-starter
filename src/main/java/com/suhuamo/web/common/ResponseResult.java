@@ -8,10 +8,11 @@ import java.io.Serializable;
 /**
  * @author suhuamo
  * @slogan 想和喜欢的人睡在冬日的暖阳里
- * @date 2023/03/16 自定义的请求返回类型
+ * @date 2023/03/16
+ * 自定义的请求返回类型
  */
 @Data
-public class BaseResponse<T> implements Serializable {
+public class ResponseResult<T> implements Serializable {
 
     /**
      * 状态码
@@ -32,7 +33,7 @@ public class BaseResponse<T> implements Serializable {
      * @param codeEnum
      * @return null
      */
-    private BaseResponse(CodeEnum codeEnum) {
+    private ResponseResult(CodeEnum codeEnum) {
         this.code = codeEnum.getCode();
         this.message = codeEnum.getDesc();
     }
@@ -44,7 +45,7 @@ public class BaseResponse<T> implements Serializable {
      * @param data
      * @return null
      */
-    private BaseResponse(CodeEnum codeEnum, T data) {
+    private ResponseResult(CodeEnum codeEnum, T data) {
         this.code = codeEnum.getCode();
         this.message = codeEnum.getDesc();
         this.data = data;
@@ -57,7 +58,7 @@ public class BaseResponse<T> implements Serializable {
      * @param message
      * @return null
      */
-    private BaseResponse(Integer code, String message) {
+    private ResponseResult(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -70,7 +71,7 @@ public class BaseResponse<T> implements Serializable {
      * @param data
      * @return null
      */
-    private BaseResponse(Integer code, String message, T data) {
+    private ResponseResult(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -82,8 +83,8 @@ public class BaseResponse<T> implements Serializable {
      * @param
      * @return BaseResponse
      */
-    public static BaseResponse ok() {
-        return new BaseResponse(CodeEnum.SUCCESS);
+    public static ResponseResult ok() {
+        return new ResponseResult(CodeEnum.SUCCESS);
     }
 
     /**
@@ -92,8 +93,8 @@ public class BaseResponse<T> implements Serializable {
      * @param data
      * @return BaseResponse
      */
-    public static BaseResponse ok(Object data) {
-        return new BaseResponse(CodeEnum.SUCCESS, data);
+    public static ResponseResult ok(Object data) {
+        return new ResponseResult(CodeEnum.SUCCESS, data);
     }
 
     /**
@@ -103,8 +104,8 @@ public class BaseResponse<T> implements Serializable {
      * @param data
      * @return BaseResponse
      */
-    public static BaseResponse ok(String message, Object data) {
-        return new BaseResponse(CodeEnum.SUCCESS.getCode(), message, data);
+    public static ResponseResult ok(String message, Object data) {
+        return new ResponseResult(CodeEnum.SUCCESS.getCode(), message, data);
     }
 
     /**
@@ -113,8 +114,8 @@ public class BaseResponse<T> implements Serializable {
      * @param
      * @return BaseResponse
      */
-    public static BaseResponse error() {
-        return new BaseResponse(CodeEnum.SERVER_ERROR);
+    public static ResponseResult error() {
+        return new ResponseResult(CodeEnum.SERVER_ERROR);
     }
 
     /**
@@ -123,8 +124,8 @@ public class BaseResponse<T> implements Serializable {
      * @param codeEnum
      * @return BaseResponse
      */
-    public static BaseResponse error(CodeEnum codeEnum) {
-        return new BaseResponse(codeEnum);
+    public static ResponseResult error(CodeEnum codeEnum) {
+        return new ResponseResult(codeEnum);
     }
 
     /**
@@ -133,7 +134,7 @@ public class BaseResponse<T> implements Serializable {
      * @param
      * @return BaseResponse
      */
-    public static BaseResponse error(Integer code, String message) {
-        return new BaseResponse(code, message);
+    public static ResponseResult error(Integer code, String message) {
+        return new ResponseResult(code, message);
     }
 }

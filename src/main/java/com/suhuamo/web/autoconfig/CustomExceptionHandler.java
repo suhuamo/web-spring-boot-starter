@@ -2,7 +2,7 @@ package com.suhuamo.web.autoconfig;
 
 import com.suhuamo.web.enums.CodeEnum;
 import com.suhuamo.web.exception.CustomException;
-import com.suhuamo.web.common.BaseResponse;
+import com.suhuamo.web.common.ResponseResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,16 +25,16 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public BaseResponse error(HttpServletRequest request, HttpServletResponse response, Exception e) {
+    public ResponseResult error(HttpServletRequest request, HttpServletResponse response, Exception e) {
         e.printStackTrace();
         // 如果是自定义类型
         if(e.getClass() == CustomException.class) {
             //类型转型
             CustomException ce = (CustomException) e;
-            return BaseResponse.error(ce.getCodeEnum().getCode(), ce.getMessage());
+            return ResponseResult.error(ce.getCodeEnum().getCode(), ce.getMessage());
         // 非自定义类型
         }else{
-            return BaseResponse.error(CodeEnum.SERVER_ERROR);
+            return ResponseResult.error(CodeEnum.SERVER_ERROR);
         }
     }
 }

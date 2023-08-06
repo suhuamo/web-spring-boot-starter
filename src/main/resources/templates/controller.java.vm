@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.suhuamo.web.common.ResponseResult;
 import ${package.Service}.${table.serviceName};
-import ${package.Parent}.common.component.Result;
 import ${package.Entity}.${entity};
-import ${package.Entity}.dto.${entity}DTO;
+import ${package.Entity}.dto.${table.entityPath}.*;
 import ${package.Entity}.vo.${entity}VO;
 
 /**
@@ -29,11 +29,11 @@ public class ${table.controllerName} {
      * 查询所有数据
      *
      * @param
-     * @return Result
+     * @return ResponseResult
      */
     @GetMapping("/all")
-    public Result all(){
-            return new Result().Success(${table.entityPath}Service.poToVO(${table.entityPath}Service.list(), new ${entity}VO()));
+    public ResponseResult all(){
+            return new ResponseResult().Success(${table.entityPath}Service.poToVO(${table.entityPath}Service.list(), new ${entity}VO()));
     }
     
     /**
@@ -43,15 +43,15 @@ public class ${table.controllerName} {
      * @param pageSize 页面数据大小
      * @param key 条件名
      * @param value 条件值
-     * @return Result
+     * @return ResponseResult
      */
     @GetMapping("/list")
-    public Result list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam(value = "key", required = false) String key,@RequestParam(value = "value", required = false) String value){
+    public ResponseResult list(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize, @RequestParam(value = "key", required = false) String key,@RequestParam(value = "value", required = false) String value){
             // 输入了key，value则添加条件查询
             if(key!=null&&value!=null){
-            return new Result().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize),new QueryWrapper<${entity}>().like(key,value), new ${entity}VO()));
+            return new ResponseResult().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize),new QueryWrapper<${entity}>().like(key,value), new ${entity}VO()));
             }else{
-            return new Result().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize), new ${entity}VO()));
+            return new ResponseResult().Success(${table.entityPath}Service.pageVO(new Page<${entity}>(pageNum,pageSize), new ${entity}VO()));
             }
     }
     
@@ -59,13 +59,13 @@ public class ${table.controllerName} {
      * 添加数据
      *
      * @param ${table.entityPath}DTO
-     * @return Result
+     * @return ResponseResult
      */
     @PostMapping("/")
-    public Result add(@RequestBody ${entity}DTO ${table.entityPath}DTO){
+    public ResponseResult add(@RequestBody ${entity}DTO ${table.entityPath}DTO){
         ${entity} ${table.entityPath} =  ${table.entityPath}Service.dtoToPO(${table.entityPath}DTO, new ${entity}());
         ${table.entityPath}Service.save(${table.entityPath});
-        return new Result().Success(${table.entityPath});
+        return new ResponseResult().Success(${table.entityPath});
     }
     
     /**
@@ -75,10 +75,10 @@ public class ${table.controllerName} {
      * @return ${entity}
      */
     @PutMapping("/")
-    public Result update(@RequestBody ${entity}DTO ${table.entityPath}DTO){
+    public ResponseResult update(@RequestBody ${entity}DTO ${table.entityPath}DTO){
         ${entity} ${table.entityPath} = ${table.entityPath}Service.dtoToPO(${table.entityPath}DTO, new ${entity}());
         ${table.entityPath}Service.updateById(${table.entityPath});
-        return new Result().Success();
+        return new ResponseResult().Success();
     }
     
     /**
@@ -87,9 +87,9 @@ public class ${table.controllerName} {
      * @return RespMessage
      */
     @DeleteMapping("/{id}")
-    public Result delete(@PathVariable("id") Integer id){
+    public ResponseResult delete(@PathVariable("id") Integer id){
             ${table.entityPath}Service.removeById(id);
-            return new Result().Success();
+            return new ResponseResult().Success();
     }
 
 

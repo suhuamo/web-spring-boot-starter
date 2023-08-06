@@ -1,14 +1,11 @@
 package ${package.ServiceImpl};
 
-##import ${superServiceImplClassPackage};
+import ${superServiceImplClassPackage};
 import ${package.Entity}.${entity};
-import ${package.Entity}.vo.${entity}VO;
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
-import com.suhuamo.web.component.WebServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 /**
  * <p>
  * $!{table.comment} 服务实现类
@@ -20,20 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 该服务类对应的 pojo 类型对应的 mapper 接口已注入 WebServiceImpl ，名称为 baseMapper
  */
 @Service
-@Transactional
-public class ${table.serviceImplName} extends WebServiceImpl<${table.mapperName}, ${entity}, ${entity}VO> implements ${table.serviceName} {
-
-    /**
-    *  向 WebServiceImpl 注入所需的mapper接口和其他内容
-    * @param ${table.entityPath}Mapper
-    * @return null
-    */
-    @Autowired
-    public ${table.serviceImplName}(${table.mapperName} ${table.entityPath}Mapper) {
-        setBaseMapper(${table.entityPath}Mapper);
-        setDemoEntity(new ${entity}());
-        setDemoEntityVO(new ${entity}VO());
-    }
+public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName}, ${entity}> implements ${table.serviceName} {
 
 
 }

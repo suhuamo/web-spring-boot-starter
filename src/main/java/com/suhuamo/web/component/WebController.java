@@ -1,12 +1,11 @@
 package com.suhuamo.web.component;
 
-import com.suhuamo.web.annotation.LogExecutionTime;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.suhuamo.web.common.BaseResponse;
+import com.suhuamo.web.common.ResponseResult;
 import com.suhuamo.web.common.DeleteDTO;
 import com.suhuamo.web.common.PageRequest;
 import com.suhuamo.web.enums.CodeEnum;
@@ -37,7 +36,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<V>
      */
     @PostMapping("/add")
-    public BaseResponse<V> add(@RequestBody AD entityAddDTO) {
+    public ResponseResult<V> add(@RequestBody AD entityAddDTO) {
         if(entityAddDTO == null) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }
@@ -49,7 +48,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
             throw new CustomException(CodeEnum.OPERATION_ERROR);
         }
         V entityVo = (V)baseService.poToVO(entity);
-        return BaseResponse.ok(entityVo);
+        return ResponseResult.ok(entityVo);
     }
 
     /**
@@ -59,7 +58,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<Boolean>
      */
     @PostMapping("/delete")
-    public BaseResponse<Boolean> delete(@RequestBody DeleteDTO deleteDTO) {
+    public ResponseResult<Boolean> delete(@RequestBody DeleteDTO deleteDTO) {
         // 校验数据
         if(deleteDTO == null || deleteDTO.getId() < 0) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
@@ -68,7 +67,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
         if(!result) {
             throw new CustomException(CodeEnum.OPERATION_ERROR);
         }
-        return BaseResponse.ok(result);
+        return ResponseResult.ok(result);
     }
 
     /**
@@ -78,7 +77,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<Boolean>
      */
     @PostMapping("/update")
-    public BaseResponse<Boolean> update(@RequestBody UD entityUpdateDTO) {
+    public ResponseResult<Boolean> update(@RequestBody UD entityUpdateDTO) {
         if(entityUpdateDTO == null) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }
@@ -89,7 +88,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
         if(!result) {
             throw new CustomException(CodeEnum.OPERATION_ERROR);
         }
-        return BaseResponse.ok(result);
+        return ResponseResult.ok(result);
     }
 
     /**
@@ -98,7 +97,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<T>
      */
     @GetMapping("/get")
-    public BaseResponse<T> getById(@RequestParam("id") Long id) {
+    public ResponseResult<T> getById(@RequestParam("id") Long id) {
         if(id < 0) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }
@@ -106,7 +105,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
         if(entity == null) {
             throw new CustomException(CodeEnum.NOT_FOUND_ERROR);
         }
-        return BaseResponse.ok(entity);
+        return ResponseResult.ok(entity);
     }
 
     /**
@@ -115,7 +114,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<V>
      */
     @GetMapping("/get/vo")
-    public BaseResponse<V> getVOById(@RequestParam("id")Long id) {
+    public ResponseResult<V> getVOById(@RequestParam("id")Long id) {
         if(id < 0) {
             throw new CustomException(CodeEnum.PARAM_ERROR);
         }
@@ -124,7 +123,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
             throw new CustomException(CodeEnum.NOT_FOUND_ERROR);
         }
         V entityVO = (V)baseService.poToVO(entity);
-        return BaseResponse.ok(entityVO);
+        return ResponseResult.ok(entityVO);
     }
 
     /**
@@ -133,7 +132,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<Page<T>>
      */
     @PostMapping("/list/page")
-    public BaseResponse<Page<T>> getListByPage(@RequestBody PageRequest<QD> pageRequest) {
+    public ResponseResult<Page<T>> getListByPage(@RequestBody PageRequest<QD> pageRequest) {
         long current = pageRequest.getCurrent();
         long size = pageRequest.getPageSize();
         T entity = null;
@@ -141,7 +140,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
             entity = (T)baseService.dtoToPO(pageRequest.getCondition());
         }
         Page<T> entityPage = (Page<T>) baseService.page(new Page<T>(current,size), baseService.getQueryWrapper(entity));
-        return BaseResponse.ok(entityPage);
+        return ResponseResult.ok(entityPage);
     }
 
     /**
@@ -150,7 +149,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
      * @return BaseResponse<Page<V>>
      */
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<V>> getVOListByPage(@RequestBody PageRequest<QD> pageRequest) {
+    public ResponseResult<Page<V>> getVOListByPage(@RequestBody PageRequest<QD> pageRequest) {
         long current = pageRequest.getCurrent();
         long size = pageRequest.getPageSize();
         T entity = null;
@@ -158,7 +157,7 @@ public class WebController<T, AD, UD, QD, V, S extends WebService> {
             entity = (T)baseService.dtoToPO(pageRequest.getCondition());
         }
         Page<V> entityVOPage = (Page<V>) baseService.pageVO(new Page<T>(current,size), baseService.getQueryWrapper(entity));
-        return BaseResponse.ok(entityVOPage);
+        return ResponseResult.ok(entityVOPage);
     }
 
     // endregion
