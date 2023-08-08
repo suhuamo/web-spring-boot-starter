@@ -6,14 +6,12 @@ package ${package.Entity};
 import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.Accessors;
-import lombok.experimental.FieldNameConstants;
 
 ## vm的语句必须顶格，否则会出现生成的代码格式混乱的问题，因为vm语句的空行/空格会被同样写入自动生成文件
 /**
@@ -23,16 +21,15 @@ import lombok.experimental.FieldNameConstants;
 *
 * @author ${author}
 * @date ${date}
-* @slogan 也许散落在浩瀚宇宙的小行星们也知道
 */
-@NoArgsConstructor
 @Data
-@FieldNameConstants
+@NoArgsConstructor
 @Accessors(chain = true)
 @Entity
 @Table(name = "${table.name}")
 public class ${entity} implements Serializable {
-    private static final long serialVersionUID=1L;
+
+    private static final long serialVersionUID = 1L;
 
 ## ----------  BEGIN 字段循环遍历  ----------
 #foreach($field in ${table.fields})

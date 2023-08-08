@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2023-05-29
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
-@ComponentScan({"com.yscz.test", "com.suhuamo"})
+@ComponentScan({"com.suhuamo"})
 @MapperScan("com.yscz.test.mapper")
 @SpringBootApplication
 public class MainApplication {

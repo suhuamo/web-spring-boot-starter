@@ -16,6 +16,10 @@ public class CommonConstant {
      * 降序
      */
     public static final String SORT_ORDER_DESC = " descend";
+    /**
+     * 分页查询最大数据量
+     */
+    public static final int PAGE_DATA_MAX_LIMIT = 100;
 
     /**
      * 常量类不允许new

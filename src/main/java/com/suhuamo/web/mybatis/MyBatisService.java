@@ -145,15 +145,15 @@ public class MyBatisService {
                 File dtoDileDirectory = new File(fileDirectory + "/dto/" + result);
                 dtoDileDirectory.mkdirs();
                 // 创建dto文件
-                creatVO(name, pojoFile, content, entity, "dto/" + result, "AddDTO");
-                creatVO(name, pojoFile, content, entity, "dto/" + result, "UpdateDTO");
-                creatVO(name, pojoFile, content, entity, "dto/" + result, "QueryDTO");
+                creatDTO(name, pojoFile, content, entity, "dto/" + result, "AddDTO");
+                creatDTO(name, pojoFile, content, entity, "dto/" + result, "UpdateDTO");
+                creatQueryDTO(name, pojoFile, content, entity, "dto/" + result, "QueryDTO");
             }
         }
     }
 
     /**
-     *  创建 vo 和 dto 文件
+     *  创建 vo 文件
      * @param name
      * @param pojoFile
      * @param content
@@ -164,7 +164,7 @@ public class MyBatisService {
      */
     private void creatVO(String name, String pojoFile, String content, String entity, String directory, String suffix) {
         // 创建vo类文件
-        String voFile = pojoFile.replaceAll(name + JAVA_FILE_SUFFIX, directory + "/" + name + suffix + JAVA_FILE_SUFFIX);
+        String voFile = pojoFile.replace(name + JAVA_FILE_SUFFIX, directory + "/" + name + suffix + JAVA_FILE_SUFFIX);
         // 对内容进行按行分类
         String[] split = content.split("\n");
         // vo内容
@@ -180,12 +180,12 @@ public class MyBatisService {
                     if(directory.contains("/")) {
                         directory = directory.replace("/", ".");
                     }
-                    String vo_line = line.replaceAll(entity, entity + "." + directory);
+                    String vo_line = line.replace(entity, entity + "." + directory);
                     voContentList.add(vo_line);
                 }
                 // 类名需要修改
                 else if (line.startsWith("public class " + name + " implements Serializable")) {
-                    String vo_line = line.replaceAll("public class " + name + " implements Serializable", "public class " + name + suffix + " implements Serializable");
+                    String vo_line = line.replace("public class " + name + " implements Serializable", "public class " + name + suffix + " implements Serializable");
                     voContentList.add(vo_line);
                 }
                 // 注释需要修改
@@ -221,6 +221,143 @@ public class MyBatisService {
         });
         thread.shutdown();
     }
+
+    /**
+     *  创建 dto 文件
+     * @param name
+     * @param pojoFile
+     * @param content
+     * @param entity
+     * @param directory
+     * @param suffix
+     * @return void
+     */
+    private void creatDTO(String name, String pojoFile, String content, String entity, String directory, String suffix) {
+        // 创建vo类文件
+        String voFile = pojoFile.replace(name + JAVA_FILE_SUFFIX, directory + "/" + name + suffix + JAVA_FILE_SUFFIX);
+        // 对内容进行按行分类
+        String[] split = content.split("\n");
+        // vo内容
+        List<String> voContentList = new ArrayList<>();
+        // 进行内容处理，即删除不需要的和修改
+        for (String line : split) {
+            // 需要忽略的行
+            if (line.contains("@Id") || line.contains("@TableId") || line.contains("@Column") || line.contains("@TableField") || line.contains("@Entity") || line.contains("@Table")) {
+                continue;
+            } else {
+                // 包路径需要修改
+                if (line.startsWith("package")) {
+                    if(directory.contains("/")) {
+                        directory = directory.replace("/", ".");
+                    }
+                    String vo_line = line.replace(entity, entity + "." + directory);
+                    voContentList.add(vo_line);
+                }
+                // 类名需要修改
+                else if (line.startsWith("public class " + name + " implements Serializable")) {
+                    String vo_line = line.replace("public class " + name + " implements Serializable", "public class " + name + suffix + " implements Serializable");
+                    voContentList.add(vo_line);
+                }
+                // 注释需要修改
+                else if(line.contains("数据表实体类")) {
+                    String vo_line = "";
+                    // 如果是dto
+                    if(suffix.equals("DTO")) {
+                        vo_line = line.replace("数据表实体类", "前端->后端数据传输类");
+                    } else {
+                        vo_line = line.replace("数据表实体类", "后端->前端数据显示类");
+                    }
+                    voContentList.add(vo_line);
+                }
+                // 其他都一样，无需处理，直接添加
+                else {
+                    voContentList.add(line);
+                }
+            }
+        }
+        // 进行线程处理
+        ExecutorService thread = ThreadPoolUtil.getThread();
+        thread.execute(() -> {
+            // 创建vo文件
+            StringBuilder voContent = new StringBuilder();
+            for (String s : voContentList) {
+                voContent.append(s);
+            }
+            try {
+                writeFile(voFile, String.valueOf(voContent));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        thread.shutdown();
+    }
+
+    /**
+     *  创建 Querydto 文件
+     * @param name
+     * @param pojoFile
+     * @param content
+     * @param entity
+     * @param directory
+     * @param suffix
+     * @return void
+     */
+    private void creatQueryDTO(String name, String pojoFile, String content, String entity, String directory, String suffix) {
+        // 创建vo类文件
+        String voFile = pojoFile.replace(name + JAVA_FILE_SUFFIX, directory + "/" + name + suffix + JAVA_FILE_SUFFIX);
+        // 对内容进行按行分类
+        String[] split = content.split("\n");
+        // vo内容
+        List<String> voContentList = new ArrayList<>();
+        // 进行内容处理，即删除不需要的和修改
+        for (String line : split) {
+            // 需要忽略的行
+            if (line.contains("@Id") || line.contains("@TableId") || line.contains("@Column") || line.contains("@TableField") || line.contains("@Entity") || line.contains("@Table")) {
+                continue;
+            } else {
+                // 包路径需要修改
+                if (line.startsWith("package")) {
+                    if(directory.contains("/")) {
+                        directory = directory.replace("/", ".");
+                    }
+                    String vo_line = line.replace(entity, entity + "." + directory);
+                    voContentList.add(vo_line);
+                    // 添加 PageProperties 的包
+                    voContentList.add("import com.suhuamo.web.common.PageProperties;");
+                }
+                // 类名需要修改
+                else if (line.startsWith("public class " + name + " implements Serializable")) {
+                    String vo_line = line.replace("public class " + name + " implements Serializable", "public class " + name + suffix + " extends PageProperties implements Serializable");
+                    voContentList.add(vo_line);
+                }
+                // 注释需要修改
+                else if(line.contains("数据表实体类")) {
+                    String vo_line = line.replace("数据表实体类", "前端->后端数据传输类");
+                    voContentList.add(vo_line);
+                }
+                // 其他都一样，无需处理，直接添加
+                else {
+                    voContentList.add(line);
+                }
+            }
+        }
+        // 进行线程处理
+        ExecutorService thread = ThreadPoolUtil.getThread();
+        thread.execute(() -> {
+            // 创建vo文件
+            StringBuilder voContent = new StringBuilder();
+            for (String s : voContentList) {
+                voContent.append(s);
+            }
+            try {
+                writeFile(voFile, String.valueOf(voContent));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        thread.shutdown();
+    }
+
 
     /**
      * 读取文件的所有内容
