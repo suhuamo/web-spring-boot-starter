@@ -1,4 +1,4 @@
-package com.suhuamo.web.enums;
+package com.suhuamo.web.common;
 
 /**
  * @author suhuamo

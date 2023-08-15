@@ -1,7 +1,7 @@
 package com.suhuamo.web.autoconfig;
 
 import com.suhuamo.web.constant.HttpConstant;
-import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.common.CodeEnum;
 import com.suhuamo.web.common.ResponseResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

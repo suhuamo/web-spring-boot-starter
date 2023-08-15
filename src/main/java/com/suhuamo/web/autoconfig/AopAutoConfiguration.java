@@ -1,6 +1,6 @@
 package com.suhuamo.web.autoconfig;
 
-import com.suhuamo.web.aop.LogInterceptor;
+import com.suhuamo.web.aop.LogOutPutInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +16,10 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(prefix = "suhuamo.web", name = {"enable", "log.enable"}, havingValue = "true", matchIfMissing = true)
 public class AopAutoConfiguration {
 
+
     @Bean
     @ConditionalOnMissingBean
-    public LogInterceptor logInterceptor() {
-        return new LogInterceptor();
+    public LogOutPutInterceptor logInterceptor() {
+        return new LogOutPutInterceptor();
     }
 }

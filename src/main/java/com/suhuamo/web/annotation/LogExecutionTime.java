@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author suhuamo
  * @date 2023-06-08
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
- * 用来标注该类的每个方法都需要查询运行时间
+ * 用来标注该方法需要查询运行时间，并会在日志中输出
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

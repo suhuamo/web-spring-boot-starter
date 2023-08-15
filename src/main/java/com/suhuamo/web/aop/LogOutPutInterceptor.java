@@ -1,7 +1,7 @@
 package com.suhuamo.web.aop;
 
-import java.util.UUID;
-
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,23 +12,29 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import java.util.UUID;
 
 /**
  * @author suhuamo
  * @date 2023-05-29
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
- * 请求响应日志AOP
+ * 请求响应日志-控制台输出-AOP
  */
 @Aspect
 @Slf4j
-public class LogInterceptor {
+@Component
+public class LogOutPutInterceptor {
 
     /**
      * 执行拦截
+     * 同时处理多个类型，execution(* com.suhuamo.web.component.WebController.*(..)) || @annotation(com.suhuamo.web.annotation.LogExecutionTime)
      */
-    @Around("execution(* com.suhuamo.web.component.WebController.*(..)) || @annotation(com.suhuamo.web.annotation.LogExecutionTime)")
+    @SuppressWarnings("all")
+    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.PutMapping) || " +
+            "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
+            "@annotation(com.suhuamo.web.annotation.LogExecutionTime)")
     public Object doInterceptor(ProceedingJoinPoint point) throws Throwable {
         // 计时
         StopWatch stopWatch = new StopWatch();
@@ -50,7 +56,7 @@ public class LogInterceptor {
         // 输出响应日志
         stopWatch.stop();
         long totalTimeMillis = stopWatch.getTotalTimeMillis();
-        log.info("\nrequest end, id: {}, cost: {}ms", requestId, totalTimeMillis);
+        log.info("\nrequest end, id: {}, cost: {}ms, result: {}", requestId, totalTimeMillis, result);
         return result;
     }
 }

@@ -1,6 +1,5 @@
 package com.suhuamo.web.common;
 
-import com.suhuamo.web.enums.CodeEnum;
 import lombok.Data;
 
 import java.io.Serializable;

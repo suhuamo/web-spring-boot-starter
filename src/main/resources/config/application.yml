@@ -77,3 +77,8 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+# 日志文件记录
+logging:
+  file:
+    # 配置日志文件生成地址
+    name: logs\spring.log

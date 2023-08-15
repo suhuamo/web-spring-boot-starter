@@ -1,7 +1,7 @@
 package com.suhuamo.web.jwt;
 
-import com.suhuamo.web.enums.CodeEnum;
-import com.suhuamo.web.exception.CustomException;
+import com.suhuamo.web.common.CodeEnum;
+import com.suhuamo.web.common.CustomException;
 import io.jsonwebtoken.*;
 
 import java.util.Date;

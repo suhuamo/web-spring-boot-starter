@@ -1,4 +1,4 @@
-package com.suhuamo.web.constant;
+package com.suhuamo.web.common;
 
 /**
  * @author suhuamo
@@ -7,15 +7,6 @@ package com.suhuamo.web.constant;
  * 通用常量
  */
 public class CommonConstant {
-    /**
-     * 升序
-     */
-    public static final String SORT_ORDER_ASC = "ascend";
-
-    /**
-     * 降序
-     */
-    public static final String SORT_ORDER_DESC = " descend";
     /**
      * 分页查询最大数据量
      */

@@ -53,6 +53,7 @@ public class ${entity} implements Serializable {
     @Id
     @TableId(value = "${field.name}", type = IdType.AUTO)
 #elseif(${field.convert})
+    @Id
     @TableId("${field.name}")
 #end
 ## 普通字段

@@ -7,7 +7,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://localhost:3306/springboot?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
+    url: jdbc:mysql://127.0.0.1:3306/springboot?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
 # web-starter相关配置
 suhuamo:
   web:
@@ -15,7 +15,7 @@ suhuamo:
       enable: false
     mybatis:
       # 生成的包路径，同时也是项目的父目录
-      parent: com.yscz.test2
+      parent: com.suhuamo.web.demo
       # 需要自动生成代码的数据库表
       tables:
         - tbl_dept

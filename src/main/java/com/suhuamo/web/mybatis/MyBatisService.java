@@ -323,7 +323,7 @@ public class MyBatisService {
                     String vo_line = line.replace(entity, entity + "." + directory);
                     voContentList.add(vo_line);
                     // 添加 PageProperties 的包
-                    voContentList.add("import com.suhuamo.web.common.PageProperties;");
+                    voContentList.add("import com.suhuamo.web.common.PageProperties;\n");
                 }
                 // 类名需要修改
                 else if (line.startsWith("public class " + name + " implements Serializable")) {
@@ -334,6 +334,11 @@ public class MyBatisService {
                 else if(line.contains("数据表实体类")) {
                     String vo_line = line.replace("数据表实体类", "前端->后端数据传输类");
                     voContentList.add(vo_line);
+                }
+                // 如果是@Data行，则添加一行 @ToString(callSuper = true)，可在 ToString 输出父类信息
+                else if(line.contains("@data")) {
+                    voContentList.add("@ToString(callSuper = true)");
+                    voContentList.add(line);
                 }
                 // 其他都一样，无需处理，直接添加
                 else {

@@ -1,6 +1,6 @@
-package com.suhuamo.web.exception;
+package com.suhuamo.web.common;
 
-import com.suhuamo.web.enums.CodeEnum;
+import com.suhuamo.web.common.CodeEnum;
 import lombok.Getter;
 
 /**

@@ -1,12 +1,14 @@
 package com.suhuamo.web.jwt;
 
+import com.suhuamo.web.util.ThreadLocalUtil;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.suhuamo.web.enums.CodeEnum;
-import com.suhuamo.web.exception.CustomException;
+import com.suhuamo.web.common.CodeEnum;
+import com.suhuamo.web.common.CustomException;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;

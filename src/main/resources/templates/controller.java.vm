@@ -1,12 +1,12 @@
 package ${package.Controller};
 
+import lombok.extern.slf4j.Slf4j;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.suhuamo.web.common.CodeEnum;
 import com.suhuamo.web.common.ResponseResult;
-import com.suhuamo.web.enums.CodeEnum;
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
 import ${package.Entity}.dto.${table.entityPath}.*;
@@ -19,7 +19,7 @@ import ${package.Entity}.vo.${entity}VO;
  */
 @Slf4j
 @RestController
-@RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+@RequestMapping("/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end#if(1==1)s#end")
 public class ${table.controllerName} {
 
     @Autowired
@@ -85,7 +85,7 @@ public class ${table.controllerName} {
         // 1. 校验数据
         ${table.entityPath}Service.validQueryData(${table.entityPath}QueryDTO);
         // 2. 根据数据解析 Wrapper
-        Wrapper queryWrapper = ${table.entityPath}Service.getQueryWrapper(${table.entityPath}QueryDTO);
+        Wrapper<${entity}> queryWrapper = ${table.entityPath}Service.getQueryWrapper(${table.entityPath}QueryDTO);
         // 3. 进行查询
         Page<${entity}> ${table.entityPath}Page = ${table.entityPath}Service.page(new Page<>(${table.entityPath}QueryDTO.getCurrent(), ${table.entityPath}QueryDTO.getPageSize()), queryWrapper);
         // 4. 返回vo给前端
