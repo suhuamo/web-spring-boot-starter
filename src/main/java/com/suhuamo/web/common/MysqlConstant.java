@@ -1,4 +1,4 @@
-package com.suhuamo.web.constant;
+package com.suhuamo.web.common;
 
 /**
  * @author suhuamo

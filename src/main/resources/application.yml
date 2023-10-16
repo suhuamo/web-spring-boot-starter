@@ -5,9 +5,9 @@ server:
 spring:
   #数据源配置
   datasource:
-    username: root
-    password: 123456
-    url: jdbc:mysql://192.168.16.117:3306/education-0.7.1?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
+    username: suhuamo
+    password: ycc12345
+    url: jdbc:mysql://suhuamo.icu:3306/account-management?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
 # web-starter相关配置
 suhuamo:
   web:
@@ -15,10 +15,10 @@ suhuamo:
       enable: false
     mybatis:
       # 生成的包路径，同时也是项目的父目录
-      parent: org.ycc.demo
+      parent: com.suhuamo.account
       # 需要自动生成代码的数据库表
       tables:
-        - t_psy_warning
+        - t_account
       # 生成代码时的java类去掉前缀，可为空
       tablePrefix:
         - t_

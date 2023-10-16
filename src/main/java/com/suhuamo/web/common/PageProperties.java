@@ -1,6 +1,5 @@
 package com.suhuamo.web.common;
 
-import com.suhuamo.web.constant.MysqlConstant;
 import lombok.Data;
 
 /**

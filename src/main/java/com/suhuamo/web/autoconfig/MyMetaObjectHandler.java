@@ -1,7 +1,7 @@
 package com.suhuamo.web.autoconfig;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.suhuamo.web.constant.MysqlConstant;
+import com.suhuamo.web.common.MysqlConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
