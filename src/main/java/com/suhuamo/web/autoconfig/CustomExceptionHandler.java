@@ -5,6 +5,7 @@ import com.suhuamo.web.common.CustomException;
 import com.suhuamo.web.common.ResponseResult;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ConditionalOnProperty(prefix = "suhuamo.web", name = {"enable","exception.enable"}, havingValue = "true", matchIfMissing = true)
 @ControllerAdvice
+@Slf4j
 public class CustomExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseResult error(HttpServletRequest request, HttpServletResponse response, Exception e) {
         e.printStackTrace();
+        log.error("发生异常，异常信息为:{}",e.getMessage());
         // 如果是自定义类型
         if(e.getClass() == CustomException.class) {
             //类型转型
