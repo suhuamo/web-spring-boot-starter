@@ -3,6 +3,7 @@ package com.suhuamo.web;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author suhuamo
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @slogan 也许散落在浩瀚宇宙的小行星们也知道
  */
 @MapperScan("org.ycc.demo.mapper")
+@ComponentScan("org.ycc.demo")
 @SpringBootApplication
 public class MainApplication {
 

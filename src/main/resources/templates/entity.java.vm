@@ -7,9 +7,6 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -25,8 +22,7 @@ import lombok.experimental.Accessors;
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-@Entity
-@Table(name = "${table.name}")
+@TableName("${table.name}")
 public class ${entity} implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,10 +46,8 @@ public class ${entity} implements Serializable {
 #if(${field.keyFlag})
 ## 主键
 #if(${field.keyIdentityFlag})
-    @Id
     @TableId(value = "${field.name}", type = IdType.AUTO)
 #elseif(${field.convert})
-    @Id
     @TableId("${field.name}")
 #end
 ## 普通字段
