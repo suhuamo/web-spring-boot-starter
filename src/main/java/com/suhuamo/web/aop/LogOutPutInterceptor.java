@@ -50,7 +50,7 @@ public class LogOutPutInterceptor {
         String reqParam = "[" + StringUtils.join(args, ", ") + "]";
         // 输出请求日志
         log.info("\nrequest start，id: {}, path: {}, ip: {}, params: {}", requestId, url,
-                httpServletRequest.getRemoteHost(), reqParam);
+                httpServletRequest.getRemoteAddr(), reqParam); // getRemoteAddr() 无法获取到经过代理后的IP，可以使用 X－FORWARDED－FOR 获取到代理前的IP
         // 执行原方法
         Object result = point.proceed();
         // 输出响应日志
