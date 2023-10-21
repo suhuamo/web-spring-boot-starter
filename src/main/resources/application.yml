@@ -5,9 +5,9 @@ server:
 spring:
   #数据源配置
   datasource:
-    username: suhuamo
-    password: ycc12345
-    url: jdbc:mysql://suhuamo.icu:3306/account-management?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/account-management?useSSL=false&characterEncoding=utf8&serverTimezone=UTC&
 # web-starter相关配置
 suhuamo:
   web:
