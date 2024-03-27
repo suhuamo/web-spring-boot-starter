@@ -29,7 +29,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 自动驼峰命名
     map-underscore-to-camel-case: true
-    # 解决查询数据为空不返回字段
+    # 解决查询数据为空不返回字段,用map接受数据才会出现的问题
     call-setters-on-nulls: true
   # .xml 文件的映射位置，不写会报错
   mapper-locations: classpath:${suhuamo.web.mybatis.parent}/mapper/xml/*.xml
